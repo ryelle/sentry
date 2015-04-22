@@ -5,3 +5,32 @@
 .project-columns .card {
 	background-color: $color__background-card;
 }
+
+/* These always stay the same, regardless of theme color */
+.card .tag {
+	background-color: greenyellow; // Ugly green!
+
+	&.theme {
+		background-color: #d31414;
+	}
+
+	&.plugin {
+		background-color: #d38814;
+	}
+
+	&.community-project {
+		background-color: #148ed3;
+	}
+
+	&.learning {
+		background-color: #47d314;
+	}
+
+	&.offline {
+		background-color: #14d3a9;
+	}
+
+	&.core {
+		background-color: #d314a6;
+	}
+}

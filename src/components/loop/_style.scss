@@ -30,10 +30,24 @@
 }
 
 .card {
+	overflow: hidden;
 	margin-bottom: $size__spacing;
 	box-shadow: 0 2px 0 rgba( black, 0.15 );
 
 	.task-title {
-		margin-top: 0;
+		clear: none;
+		margin: 0;
+	}
+
+	.tag {
+		display: inline-block;
+		overflow: hidden;
+		float: right;
+		margin-top: 7px;
+		margin-left: 5px;
+		height: 14px;
+		width: 14px;
+		border-radius: $size__border-radius;
+		text-indent: -999em;
 	}
 }
