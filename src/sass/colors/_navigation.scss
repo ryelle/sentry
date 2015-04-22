@@ -1,0 +1,13 @@
+.site-header {
+	background-color: $color__background-nav;
+
+	a {
+		color: $color__text-button;
+		background-color: $color__background-button;
+
+		&.current {
+			color: $color__background-button;
+			background-color: $color__text-button;
+		}
+	}
+}

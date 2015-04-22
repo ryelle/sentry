@@ -1,0 +1,29 @@
+.site-header {
+	@include font-size( 3.2 );
+	line-height: 1;
+	text-align: center;
+
+	a {
+		display: block;
+		margin: $size__spacing;
+		padding: ($size__spacing - 6) $size__spacing;
+		border-radius: $size__border-radius;
+		box-shadow: 0 2px 0 rgba( black, 0.5 );
+		text-decoration: none;
+
+		&.current {
+			box-shadow: inset 0 2px 0 rgba( black, 0.5 );
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	img.emoji {
+		height: auto !important;
+		width: auto !important;
+		margin: 0 !important;
+		vertical-align: 0 !important;
+	}
+}

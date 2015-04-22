@@ -1,0 +1,26 @@
+html, body {
+	min-height: 100vh;
+}
+
+.site {
+	position: relative;
+	float: right;
+	margin: 0 0 0 -100px;
+	width: 100%;
+	min-height: 100vh;
+	overflow: scroll;
+}
+
+.site-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	overflow: hidden;
+	width: 100px;
+}
+
+.project-columns {
+	overflow: scroll;
+	margin: 0 0 0 100px;
+}

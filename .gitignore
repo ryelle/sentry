@@ -1,0 +1,13 @@
+# Project files
+/Gruntfile.js
+/package.json
+.sass-cache
+node_modules
+
+# Compiled files
+style.css
+sentry.js
+*.map
+
+# Temp files
+screenshot.png
