@@ -1,5 +1,6 @@
-var loadPosts = {
-	loadPostsFromServer: function() {
+var loadFromServer = {
+
+	getData: function() {
 		var postData = JSON.parse( localStorage.getItem( this.props.url ) );
 		// console.log( this.props.url, postData );
 		if ( false && postData ) {
@@ -25,6 +26,7 @@ var loadPosts = {
 		// Scoll to top on page change
 		window.scroll(0,0);
 	},
+
 };
 
-module.exports = loadPosts;
+module.exports = loadFromServer;

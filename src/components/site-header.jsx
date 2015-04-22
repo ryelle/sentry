@@ -6,13 +6,13 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var loadPosts = require( './mixins/loadPosts.jsx' );
+var loadFromServer = require( './mixins/loadFromServer.jsx' );
 
 /**
  * Renders list of posts
  */
 SiteHeader = React.createClass({
-	mixins: [ loadPosts ],
+	mixins: [ loadFromServer ],
 
 	getInitialState: function() {
 		return {
@@ -21,11 +21,11 @@ SiteHeader = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.loadPostsFromServer();
+		this.getData();
 	},
 	componentDidUpdate: function(prevProps, prevState) {
 		if ( prevProps !== this.props ) {
-			this.loadPostsFromServer();
+			this.getData();
 		}
 	},
 

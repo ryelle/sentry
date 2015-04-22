@@ -7,24 +7,24 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var Card = require( './card.jsx' ),
-    loadPosts = require( '../mixins/loadPosts.jsx' );
+    loadFromServer = require( '../mixins/loadFromServer.jsx' );
 
 /**
  * Make it so…
  */
 
 var Column = React.createClass({
-	mixins: [ loadPosts ],
+	mixins: [ loadFromServer ],
 
 	getInitialState: function() {
 		return {data: []};
 	},
 	componentDidMount: function() {
-		this.loadPostsFromServer();
+		this.getData();
 	},
 	componentDidUpdate: function(prevProps, prevState) {
 		if ( prevProps !== this.props ) {
-			this.loadPostsFromServer();
+			this.getData();
 		}
 	},
 
