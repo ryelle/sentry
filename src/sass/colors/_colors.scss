@@ -36,9 +36,8 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	color: rgba(0, 0, 0, .8);
+	color: $color__text-button;
 	background-color: $color__background-button;
-	border-color: $color__border-button;
 
 	&:hover {
 	}

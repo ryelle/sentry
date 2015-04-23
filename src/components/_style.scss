@@ -6,6 +6,7 @@ html, body {
 	position: relative;
 	float: right;
 	margin: 0 0 0 -100px;
+	padding-right: $size__spacing;
 	width: 100%;
 	min-height: 100vh;
 	overflow: scroll;

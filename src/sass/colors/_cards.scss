@@ -1,7 +1,13 @@
 .project-columns .column {
 	background-color: $color__background-col;
 }
+.project-columns .empty-column {
+	background-color: transparent;
 
+	.add-column {
+		background-color: $color__background-new-col;
+	}
+}
 .project-columns .card {
 	background-color: $color__background-card;
 }

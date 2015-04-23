@@ -28,17 +28,27 @@ var Content = React.createClass({
 		}
 	},
 
+	newColumn: function(){
+		return(
+			<div className="column empty-column" key="new-site-box">
+				<button className="add-column"><i className="fa fa-plus fa-2x"></i></button>
+			</div>
+		);
+	},
+
 	render: function() {
-		var columns = this.state.data.map( function( cat ){
+		var columnMarkup = this.state.data.map( function( cat ){
 			var url = "/wp-json/wp/posts/?category_name=" + cat.slug;
 			return (
 				<Column key={cat.id} url={url} name={cat.name} slug={cat.slug} />
 			)
 		});
 
+		columnMarkup.push( this.newColumn() );
+
 		return (
 			<div className="project-columns">
-				{ columns }
+				{ columnMarkup }
 			</div>
 		);
 	}

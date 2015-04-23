@@ -41,9 +41,9 @@ var Column = React.createClass({
 			<div className={theClasses} >
 				<header className="status-header">
 					<h1 className="status-title">{this.props.name}</h1>
-					<button className="card-add">+</button>
 				</header>
 				{ postNodes }
+				<button className="add-card"><i className="fa fa-plus fa-2x"></i></button>
 			</div>
 		);
 	}
