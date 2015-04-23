@@ -3,7 +3,7 @@
 	line-height: 1;
 	text-align: center;
 
-	a {
+	.project-link {
 		display: block;
 		margin: $size__spacing;
 		padding: ($size__spacing - 6) $size__spacing;
@@ -17,6 +17,18 @@
 
 		&:focus {
 			outline: none;
+		}
+	}
+
+	.avatar {
+		position: absolute;
+		bottom: $size__spacing;
+		left: $size__spacing;
+
+		img {
+			height: 60px;
+			width: 60px;
+			border-radius: 50%;
 		}
 	}
 
