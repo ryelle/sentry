@@ -1,0 +1,132 @@
+// $base-color defined in PHP
+
+// @if ( saturation( $base-color ) > 50 ){
+// 
+// }
+body {
+	fake: saturation( $base-color );
+}
+
+$color__background-body: $base-color;
+$color__background-list: saturate( lighten( $base-color, 40% ), 10% );
+$color__background-task: white;
+
+$color__background-nav: saturate( lighten( $base-color, 10% ), 7% );
+$color__background-nav-button: saturate( lighten( $base-color, 37% ), 10% );
+$color__text-nav-button: darken( $base-color, 11% );
+
+$color__background-new-list: darken( $base-color, 11% );
+
+$color__background-button: $color__background-nav;
+
+$color__text-main: #464646;
+
+$color__text-input: #666;
+$color__text-input-focus: #111;
+$color__text-button: white;
+
+$color__link: royalblue;
+$color__link-visited: purple;
+$color__link-hover: midnightblue;
+
+$color__background-pre: #eee;
+$color__background-ins: #fff9c0;
+
+$color__border-button: none;
+$color__border-input: none;
+
+body {
+	background: $color__background-body;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	color: $color__text-main;
+}
+
+pre {
+	background-color: $color__background-pre;
+}
+
+mark, ins {
+	background-color: $color__background-ins;
+}
+
+a {
+	color: $color__link;
+
+	&:visited {
+		color: $color__link-visited;
+	}
+	&:hover,
+	&:focus,
+	&:active {
+		color: $color__link-hover;
+	}
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	color: $color__text-button;
+	background-color: $color__background-button;
+
+	&:hover {
+	}
+
+	&:active,
+	&:focus {
+	}
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+textarea {
+	color: $color__text-input;
+	border-color: $color__border-input;
+
+	&:focus {
+		color: $color__text-input-focus;
+	}
+}
+
+//==========
+// Navigation
+// ==========
+.site-header {
+	background-color: $color__background-nav;
+
+	.project-link {
+		color: $color__text-nav-button;
+		background-color: $color__background-nav-button;
+
+		&.current {
+			color: $color__background-nav-button;
+			background-color: $color__text-nav-button;
+		}
+	}
+}
+
+// ==========
+// Tasks
+// ==========
+.project .list {
+	background-color: $color__background-list;
+}
+.project .empty-list {
+	background-color: transparent;
+
+	.add-list {
+		background-color: $color__background-new-list;
+	}
+}
+.project .task {
+	background-color: $color__background-task;
+}

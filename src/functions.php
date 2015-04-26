@@ -1,7 +1,7 @@
 <?php
 
 if ( ! defined( 'SENTRY_VERSION' ) ) {
-	if ( WP_DEBUG ) {
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 		define( 'SENTRY_VERSION', time() );
 	} else {
 		define( 'SENTRY_VERSION', '0.1' );
@@ -46,8 +46,8 @@ endif; // sentry_setup
 add_action( 'after_setup_theme', 'sentry_setup' );
 
 function sentry_scripts() {
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' );
-	wp_enqueue_style( 'sentry-style', get_stylesheet_uri(), SENTRY_VERSION );
+	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', [], '4.3.0' );
+	wp_enqueue_style( 'sentry-style', get_stylesheet_uri(), [], SENTRY_VERSION );
 
 	wp_register_script( 'sentry-script', get_template_directory_uri() . '/js/sentry.js', array( 'jquery', 'underscore' ), SENTRY_VERSION, true );
 
@@ -95,3 +95,8 @@ function sentry_get_terms_args( $args, $taxonomies ){
 	return $args;
 }
 add_filter( 'get_terms_args', 'sentry_get_terms_args', 10, 2 );
+
+/**
+ * Load dynamic colors file.
+ */
+require get_template_directory() . '/colors/dynamic-colors.php';
