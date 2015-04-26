@@ -6,7 +6,7 @@ var React = require( 'react/addons' );
 /**
  * Renders list of posts
  */
-Author = React.createClass({
+User = React.createClass({
 	render: function() {
 		return (
 			<div className="avatar" >
@@ -18,4 +18,4 @@ Author = React.createClass({
 	}
 });
 
-module.exports = Author;
+module.exports = User;

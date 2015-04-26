@@ -7,8 +7,8 @@ var React = require( 'react/addons' ),
 /**
  * Internal dependencies
  */
-var Content = require( './site-content.jsx' ),
-    SiteHeader = require( './site-header.jsx' );
+var Project = require( './project' ),
+    Navigation = require( './navigation' );
 
 var Router = React.createClass({
 
@@ -19,7 +19,7 @@ var Router = React.createClass({
 		page( '/category/:slug', function ( ctx ) {
 			var slug = ctx.params.slug;
 			var url = "/wp-json/wp/terms/category/?child_of=" + slug;
-			self.setState({ component: <Content url={url} /> });
+			self.setState({ component: <Project url={url} /> });
 			self.refs.header.setState({ current: slug });
 		});
 
@@ -34,7 +34,7 @@ var Router = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<SiteHeader ref="header" url="/wp-json/wp/terms/category/" current="" />
+				<Navigation ref="header" url="/wp-json/wp/terms/category/" current="" />
 				{ this.state.component }
 			</div>
 		);

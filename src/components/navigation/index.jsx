@@ -6,13 +6,13 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var Author = require( './meta/author.jsx' ),
-    loadFromServer = require( './mixins/loadFromServer.jsx' );
+var User = require( './user' ),
+    loadFromServer = require( '../mixins/loadFromServer' );
 
 /**
  * Renders list of posts
  */
-SiteHeader = React.createClass({
+Navigation = React.createClass({
 	mixins: [ loadFromServer ],
 
 	getInitialState: function() {
@@ -32,7 +32,7 @@ SiteHeader = React.createClass({
 
 	render: function() {
 		var self = this,
-		    Boards = this.state.data.map( function ( cat ) {
+		    projects = this.state.data.map( function ( cat ) {
 				if ( "uncategorized" == cat.slug || cat.parent > 0 ) return null;
 				var displayName = ( cat.name.length > 2 )? cat.name.slice( 0, 1 ): cat.name;
 				var theClasses = 'project-link';
@@ -48,11 +48,11 @@ SiteHeader = React.createClass({
 
 		return (
 			<header className="site-header">
-				{Boards}
-				<Author />
+				{ projects }
+				<User />
 			</header>
 		);
 	}
 });
 
-module.exports = SiteHeader;
+module.exports = Navigation;

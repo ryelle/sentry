@@ -6,7 +6,7 @@ var React = require( 'react/addons' );
 /**
  * Renders list of posts
  */
-Card = React.createClass({
+Task = React.createClass({
 	render: function() {
 		if ( 'undefined' !== typeof this.props.tags ) {
 			tags = this.props.tags.map( function ( tag ) {
@@ -29,4 +29,4 @@ Card = React.createClass({
 	}
 });
 
-module.exports = Card;
+module.exports = Task;

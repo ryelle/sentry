@@ -6,14 +6,14 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var Column = require( './loop/column.jsx' ),
-    loadFromServer = require( './mixins/loadFromServer.jsx' );
+var List = require( './list' ),
+    loadFromServer = require( '../mixins/loadFromServer' );
 
 /**
  * Make it so…
  */
 
-var Content = React.createClass({
+var Project = React.createClass({
 	mixins: [ loadFromServer ],
 
 	getInitialState: function() {
@@ -28,7 +28,7 @@ var Content = React.createClass({
 		}
 	},
 
-	newColumn: function(){
+	newList: function(){
 		return(
 			<div className="column empty-column" key="new-site-box">
 				<button className="add-column"><i className="fa fa-plus fa-2x"></i></button>
@@ -37,21 +37,21 @@ var Content = React.createClass({
 	},
 
 	render: function() {
-		var columnMarkup = this.state.data.map( function( cat ){
+		var lists = this.state.data.map( function( cat ){
 			var url = "/wp-json/wp/posts/?category_name=" + cat.slug;
 			return (
-				<Column key={cat.id} url={url} name={cat.name} slug={cat.slug} />
+				<List key={cat.id} url={url} name={cat.name} slug={cat.slug} />
 			)
 		});
 
-		columnMarkup.push( this.newColumn() );
+		lists.push( this.newList() );
 
 		return (
 			<div className="project-columns">
-				{ columnMarkup }
+				{ lists }
 			</div>
 		);
 	}
 });
 
-module.exports = Content;
+module.exports = Project;

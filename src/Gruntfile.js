@@ -36,7 +36,10 @@ module.exports = function(grunt) {
 		},
 		browserify: {
 			options: {
-				transform: [ require('grunt-react').browserify ]
+				transform: [ require('grunt-react').browserify ],
+				browserifyOptions : {
+					extensions: [ '.js','.json','.jsx' ]
+				}
 			},
 			app: {
 				src:  'components/' + THEME_NAME + '.js',

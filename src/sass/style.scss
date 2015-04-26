@@ -55,9 +55,10 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 /*--------------------------------------------------------------
 # Components
 --------------------------------------------------------------*/
-@import "../components/style";
 @import "../components/navigation/style";
-@import "../components/loop/style";
+@import "../components/project/style";
+@import "../components/project/list/style";
+@import "../components/project/list/task/style";
 
 @import "colors/colors";
 

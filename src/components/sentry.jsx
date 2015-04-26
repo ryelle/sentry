@@ -7,7 +7,7 @@ var React = require( 'react/addons' ),
 /**
  * Internal dependencies
  */
-var Router = require( './router.jsx' );
+var Router = require( './router' );
 
 jQuery( '.site' ).on( 'click', 'a', function( e ) {
 	e.preventDefault();
