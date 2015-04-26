@@ -21,7 +21,18 @@ html, body {
 	width: 100px;
 }
 
-.project-columns {
+.project {
 	overflow: scroll;
 	margin: 0 0 0 100px;
+	padding: $size__spacing;
+	display: flex;
+
+	.empty-list {
+		padding: 0;
+
+		.add-list {
+			padding: $size__spacing * 2;
+			width: 100%;
+		}
+	}
 }

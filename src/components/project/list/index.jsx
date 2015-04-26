@@ -35,7 +35,7 @@ var List = React.createClass({
 			);
 		});
 
-		var theClasses = this.props.slug + ' column';
+		var theClasses = this.props.slug + ' list';
 
 		return (
 			<div className={theClasses} >
@@ -43,7 +43,7 @@ var List = React.createClass({
 					<h1 className="status-title">{this.props.name}</h1>
 				</header>
 				{ tasks }
-				<button className="add-card"><i className="fa fa-plus fa-2x"></i></button>
+				<button className="add-task"><i className="fa fa-plus fa-2x"></i></button>
 			</div>
 		);
 	}

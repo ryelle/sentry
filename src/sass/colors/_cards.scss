@@ -1,19 +1,19 @@
-.project-columns .column {
+.project .list {
 	background-color: $color__background-col;
 }
-.project-columns .empty-column {
+.project .empty-list {
 	background-color: transparent;
 
-	.add-column {
+	.add-list {
 		background-color: $color__background-new-col;
 	}
 }
-.project-columns .card {
+.project .task {
 	background-color: $color__background-card;
 }
 
 /* These always stay the same, regardless of theme color */
-.card .tag {
+.task .tag {
 	background-color: greenyellow; // Ugly green!
 
 	&.theme {

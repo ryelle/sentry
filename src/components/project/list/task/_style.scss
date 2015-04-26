@@ -1,42 +1,8 @@
-.project-columns {
+.task {
+	overflow: hidden;
+	margin-bottom: $size__spacing;
 	padding: $size__spacing;
-	display: flex;
-
-	.column,
-	.card {
-		padding: $size__spacing;
-		border-radius: $size__border-radius;
-	}
-
-	.column {
-		flex: 1;
-		margin-right: $size__spacing;
-		min-width: 340px;
-	}
-
-	.empty-column {
-		padding: 0;
-
-		.add-column {
-			padding: $size__spacing * 2;
-			width: 100%;
-		}
-	}
-}
-
-.status-header {
-	overflow: hidden;
-	margin-bottom: $size__spacing;
-
-	.status-title {
-		margin: 0;
-		float: left;
-	}
-}
-
-.card {
-	overflow: hidden;
-	margin-bottom: $size__spacing;
+	border-radius: $size__border-radius;
 	box-shadow: 0 2px 0 rgba( black, 0.15 );
 
 	.task-title {
@@ -55,11 +21,4 @@
 		border-radius: $size__border-radius;
 		text-indent: -999em;
 	}
-}
-
-.add-card {
-	margin-top: $size__spacing;
-	width: 100%;
-	box-shadow: 0 2px 0 rgba( black, 0.6 );
-	text-align: center;
 }

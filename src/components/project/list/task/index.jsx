@@ -21,7 +21,7 @@ Task = React.createClass({
 			);
 		}
 		return (
-			<div className="card" >
+			<div className="task" >
 				{ tags }
 				<h3 className="task-title">{ this.props.title }</h3>
 			</div>

@@ -30,8 +30,8 @@ var Project = React.createClass({
 
 	newList: function(){
 		return(
-			<div className="column empty-column" key="new-site-box">
-				<button className="add-column"><i className="fa fa-plus fa-2x"></i></button>
+			<div className="list empty-list" key="new-list">
+				<button className="add-list"><i className="fa fa-plus fa-2x"></i></button>
 			</div>
 		);
 	},
@@ -47,7 +47,7 @@ var Project = React.createClass({
 		lists.push( this.newList() );
 
 		return (
-			<div className="project-columns">
+			<div className="project">
 				{ lists }
 			</div>
 		);
