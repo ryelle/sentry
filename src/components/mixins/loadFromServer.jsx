@@ -27,6 +27,27 @@ var loadFromServer = {
 		window.scroll(0,0);
 	},
 
+	getUser: function() {
+		var url = '/wp-json/wp/users/' + SentrySettings.user,
+		    postData = JSON.parse( localStorage.getItem( url ) );
+		if ( false && postData ) {
+			this.setState({data: postData});
+		} else {
+			// Always AJAX, to check for new posts.
+			jQuery.ajax({
+				url: url,
+				dataType: 'json',
+				success: function(data) {
+					localStorage.setItem( url, JSON.stringify( data ) );
+					this.setState({data: data});
+				}.bind(this),
+				error: function(xhr, status, err) {
+					console.error( url, status, err.toString() );
+				}.bind(this)
+			});
+		}
+	},
+
 };
 
 module.exports = loadFromServer;
