@@ -37,6 +37,9 @@ module.exports = function(grunt) {
 		browserify: {
 			options: {
 				transform: [ require('grunt-react').browserify ],
+				alias: [
+					'./components/mixins/loadFromServer:mixins/loadFromServer'
+				],
 				browserifyOptions : {
 					extensions: [ '.js','.json','.jsx' ]
 				}

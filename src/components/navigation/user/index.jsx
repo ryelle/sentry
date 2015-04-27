@@ -6,7 +6,7 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var loadFromServer = require( '../../mixins/loadFromServer' );
+var loadFromServer = require( 'mixins/loadFromServer' );
 
 /**
  * Renders list of posts

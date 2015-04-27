@@ -7,7 +7,7 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var Task = require( './task' ),
-    loadFromServer = require( '../../mixins/loadFromServer' );
+    loadFromServer = require( 'mixins/loadFromServer' );
 
 /**
  * Make it so…
@@ -43,7 +43,7 @@ var List = React.createClass({
 					<h1 className="status-title">{this.props.name}</h1>
 				</header>
 				{ tasks }
-				<button className="add-task"><i className="fa fa-plus fa-2x">+</i></button>
+				<button className="add-task"><i className="fa fa-plus fa-2x"></i></button>
 			</div>
 		);
 	}

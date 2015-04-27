@@ -7,7 +7,7 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var List = require( './list' ),
-    loadFromServer = require( '../mixins/loadFromServer' );
+    loadFromServer = require( 'mixins/loadFromServer' );
 
 /**
  * Make it so…
