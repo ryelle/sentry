@@ -19,7 +19,7 @@ var Router = React.createClass({
 		page( '/category/:slug', function ( ctx ) {
 			var slug = ctx.params.slug;
 			var url = "/wp-json/wp/terms/category/?child_of=" + slug;
-			self.setState({ component: <Project url={url} /> });
+			self.setState({ component: <Project url={url} current={slug} /> });
 			self.refs.header.setState({ current: slug });
 		});
 

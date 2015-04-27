@@ -34,15 +34,9 @@ class Sentry_ProjectColors {
 		if ( ! class_exists( 'Jetpack' ) ) {
 			return;
 		}
-		// D7A85A muted orange
-		// A99E8D grey-tan
-		// 325F80 dark blue
-		// 426c63 teal
-		$color = '05668D';
 
-		if ( $color ) {
-			$this->link_css( $color );
-		}
+		$color = 'A99E8D'; // default color: ugly tan
+		$this->link_css( $color );
 	}
 
 	public function link_css( $color ){

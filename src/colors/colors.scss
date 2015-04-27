@@ -1,10 +1,10 @@
 // $base-color defined in PHP
 
-// @if ( saturation( $base-color ) > 50 ){
-// 
-// }
-body {
-	fake: saturation( $base-color );
+@if ( saturation( $base-color ) > 85% ){
+	$base-color: desaturate( $base-color, 15% );
+}
+@if ( lightness( $base-color ) > 55% ){
+	$base-color: darken( $base-color, 20% );
 }
 
 $color__background-body: $base-color;

@@ -2,7 +2,6 @@ var loadFromServer = {
 
 	getData: function() {
 		var postData = JSON.parse( localStorage.getItem( this.props.url ) );
-		// console.log( this.props.url, postData );
 		if ( false && postData ) {
 			this.setState({data: postData});
 		} else {

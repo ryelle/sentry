@@ -46,6 +46,9 @@ var Project = React.createClass({
 
 		lists.push( this.newList() );
 
+		var color = SentrySettings.colors[this.props.current] || 'ff0000';
+		document.getElementById( 'sentry-color-css' ).href = SentrySettings.baseURL + '/sentry-css/' + color + '/';
+
 		return (
 			<div className="project">
 				{ lists }

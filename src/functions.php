@@ -55,6 +55,10 @@ function sentry_scripts() {
 		'baseURL' => home_url(),
 		'themeURL' => get_template_directory_uri(),
 		'user' => get_current_user_id(),
+		'colors' => array(
+			'personal' => '426c63',
+			'automattic' => '05668D',
+		),
 	) );
 
 	wp_enqueue_script( 'sentry-script' );
