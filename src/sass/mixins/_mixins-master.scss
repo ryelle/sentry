@@ -11,6 +11,13 @@
 	margin-right: auto;
 }
 
+// Rounded rectangle
+%rounded {
+	display: block;
+	padding: $size__spacing;
+	border-radius: $size__border-radius;
+}
+
 // Clearfix
 @mixin clearfix() {
 	content: "";

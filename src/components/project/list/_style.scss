@@ -11,9 +11,8 @@
 
 .list {
 	flex: 1;
+	@extend %rounded;
 	margin-right: $size__spacing;
-	padding: $size__spacing;
-	border-radius: $size__border-radius;
 	min-width: 340px;
 }
 
