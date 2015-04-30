@@ -85,6 +85,10 @@ function sentry_get_json( $_post ) {
 		$status = '';
 	}
 
+	$post = get_post( $_post['id'] );
+	$_post['order'] = $post->menu_order;
+	// $_post['order'] = mt_rand(0, 25);
+
 	$_post['tags'] = $tags;
 	$_post['status'] = $status;
 

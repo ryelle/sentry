@@ -29,16 +29,18 @@ var List = React.createClass({
 	},
 
 	render: function() {
-		var tasks = this.state.data.map( function ( post ) {
+		var data = _.sortBy( this.state.data, 'order' );
+
+		var tasks = data.map( function ( post ) {
 			return (
-				<Task key={post.id} id={post.id} post_class={post.post_class} link={post.link} title={post.title} date={post.date} content={post.content} tags={post.tags} featured_image={ post.featured_image } />
+				<Task key={post.id} id={post.id} link={post.link} title={post.title} date={post.date} content={post.content} tags={post.tags} featured_image={ post.featured_image } />
 			);
 		});
 
 		var theClasses = this.props.slug + ' list';
 
 		return (
-			<div className={theClasses} >
+			<div className={theClasses}>
 				<header className="status-header">
 					<h1 className="status-title">{this.props.name}</h1>
 				</header>
