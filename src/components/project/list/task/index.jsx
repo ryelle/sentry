@@ -4,9 +4,16 @@
 var React = require( 'react/addons' );
 
 /**
+ * Internal dependencies
+ */
+var dragFunctions = require( 'mixins/dragFunctions' );
+
+/**
  * Renders list of posts
  */
 Task = React.createClass({
+	mixins: [ dragFunctions ],
+
 	render: function() {
 		if ( 'undefined' !== typeof this.props.tags ) {
 			tags = this.props.tags.map( function ( tag ) {
@@ -17,13 +24,13 @@ Task = React.createClass({
 			});
 		} else {
 			tags = (
-				<span key='none' className='tag'>&nbsp;</span>
+				<span dragover={this.blockDrag} key='none' className='tag'>&nbsp;</span>
 			);
 		}
 		return (
-			<div className="task" >
+			<div className="task" draggable="true" onDragEnd={this.dragEnd} onDragStart={this.dragStart} pid={ this.props.id }>
 				{ tags }
-				<h3 className="task-title">{ this.props.title }</h3>
+				<h3 dragover={this.blockDrag} className="task-title">{ this.props.order } | { this.props.title }</h3>
 			</div>
 		);
 	}
