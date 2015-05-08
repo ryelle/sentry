@@ -18,7 +18,7 @@ var Router = React.createClass({
 
 		page( '/category/:slug', function ( ctx ) {
 			var slug = ctx.params.slug;
-			var url = "/wp-json/wp/terms/category/?child_of=" + slug;
+			var url = "/wp-json/wp/v2/terms/category/?child_of=" + slug;
 			self.setState({ component: <Project url={url} current={slug} /> });
 			self.refs.header.setState({ current: slug });
 		});
@@ -34,7 +34,7 @@ var Router = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<Navigation ref="header" url="/wp-json/wp/terms/category/" current="" />
+				<Navigation ref="header" url="/wp-json/wp/v2/terms/category/" current="" />
 				{ this.state.component }
 			</div>
 		);
