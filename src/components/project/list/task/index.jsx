@@ -30,7 +30,7 @@ Task = React.createClass({
 		return (
 			<div className="task" draggable="true" onDragEnd={this.dragEnd} onDragStart={this.dragStart} pid={ this.props.id }>
 				{ tags }
-				<h3 dragover={this.blockDrag} className="task-title">{ this.props.order } | { this.props.title }</h3>
+				<h3 dragover={this.blockDrag} className="task-title">{ this.props.title }</h3>
 			</div>
 		);
 	}
