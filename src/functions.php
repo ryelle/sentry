@@ -46,7 +46,10 @@ endif; // sentry_setup
 add_action( 'after_setup_theme', 'sentry_setup' );
 
 function sentry_scripts() {
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', [], '4.3.0' );
+	global $Airplane_Mode_Core;
+	if ( ! isset( $Airplane_Mode_Core ) || ! $Airplane_Mode_Core->enabled() ) {
+		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', [], '4.3.0' );
+	}
 	wp_enqueue_style( 'sentry-style', get_stylesheet_uri(), [], SENTRY_VERSION );
 
 	wp_register_script( 'sentry-script', get_template_directory_uri() . '/js/sentry.js', array( 'jquery', 'underscore' ), SENTRY_VERSION, true );
