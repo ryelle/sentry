@@ -45,7 +45,6 @@ var List = React.createClass({
 			return post;
 		});
 		updatedData = self.resetOrder( _.sortBy( updatedData, 'order' ) );
-		// console.log( _.pluck( updatedData, 'order' ) );
 		this.setState({ data: updatedData });
 	},
 
