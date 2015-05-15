@@ -34,7 +34,7 @@ var Router = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<Navigation ref="header" url="/wp-json/wp/v2/terms/category/" current="" />
+				<Navigation ref="header" url="/wp-json/wp/v2/terms/category/?per_page=20" current="" />
 				{ this.state.component }
 			</div>
 		);
