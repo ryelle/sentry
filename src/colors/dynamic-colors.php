@@ -75,7 +75,7 @@ class Sentry_ProjectColors {
 		}
 		$cache = false;
 
-		$sass = wp_remote_retrieve_body( wp_remote_get( get_template_directory_uri() . '/colors/colors.scss' ) );
+		$sass = file_get_contents( __DIR__ . '/colors.scss' );
 
 		$key = $this->cache_prefix . str_replace( '#', '', $color );
 		$css = ( $cache ) ? get_transient( $key ) : false;

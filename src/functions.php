@@ -46,7 +46,10 @@ endif; // sentry_setup
 add_action( 'after_setup_theme', 'sentry_setup' );
 
 function sentry_scripts() {
-	wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', [], '4.3.0' );
+	global $Airplane_Mode_Core;
+	if ( ! isset( $Airplane_Mode_Core ) || ! $Airplane_Mode_Core->enabled() ) {
+		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', [], '4.3.0' );
+	}
 	wp_enqueue_style( 'sentry-style', get_stylesheet_uri(), [], SENTRY_VERSION );
 
 	wp_register_script( 'sentry-script', get_template_directory_uri() . '/js/sentry.js', array( 'jquery', 'underscore' ), SENTRY_VERSION, true );
@@ -67,14 +70,14 @@ add_action( 'wp_enqueue_scripts', 'sentry_scripts' );
 
 function sentry_get_json( $_post ) {
 
-	$tags = get_the_terms( $_post['id'], 'post_tag' );
+	$tags = get_the_terms( $_post->data['id'], 'post_tag' );
 	if ( is_array( $tags ) ) {
 		$tags = array_values( wp_list_pluck( $tags, 'slug' ) );
 	} else {
 		$tags = [];
 	}
 
-	$status = get_the_terms( $_post['id'], 'category' );
+	$status = get_the_terms( $_post->data['id'], 'category' );
 	if ( is_array( $status ) ) {
 		$status = wp_list_filter( $status, array( 'parent' => 0 ), 'NOT' );
 		if ( ! empty( $status ) ) {
@@ -85,19 +88,18 @@ function sentry_get_json( $_post ) {
 		$status = '';
 	}
 
-	$post = get_post( $_post['id'] );
-	$_post['order'] = $post->menu_order;
-	// $_post['order'] = mt_rand(0, 25);
+	$post = get_post( $_post->data['id'] );
+	$_post->data['order'] = $post->menu_order;
 
-	$_post['tags'] = $tags;
-	$_post['status'] = $status;
+	$_post->data['tags'] = $tags;
+	$_post->data['status'] = $status;
 
 	return $_post;
 }
-add_filter( 'json_prepare_post', 'sentry_get_json' );
+add_filter( 'rest_prepare_post', 'sentry_get_json' );
 
 function sentry_get_terms_args( $args, $taxonomies ){
-	if ( ! is_admin() && defined( 'JSON_API_VERSION' ) && isset( $_GET['child_of'] ) ) {
+	if ( ! is_admin() && defined( 'REST_API_VERSION' ) && isset( $_GET['child_of'] ) ) {
 		if ( ! is_numeric( $_GET['child_of'] ) ) {
 			$parent = get_term_by( 'slug', $_GET['child_of'], 'category' );
 			$parent = $parent->term_id;

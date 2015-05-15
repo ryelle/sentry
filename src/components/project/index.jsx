@@ -38,7 +38,7 @@ var Project = React.createClass({
 
 	render: function() {
 		var lists = this.state.data.map( function( cat ){
-			var url = "/wp-json/wp/posts/?category_name=" + cat.slug;
+			var url = "/wp-json/wp/v2/posts/?category_name=" + cat.slug;
 			return (
 				<List key={cat.id} url={url} name={cat.name} slug={cat.slug} />
 			)

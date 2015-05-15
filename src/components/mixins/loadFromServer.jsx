@@ -27,7 +27,7 @@ var loadFromServer = {
 	},
 
 	getUser: function() {
-		var url = '/wp-json/wp/users/' + SentrySettings.user,
+		var url = '/wp-json/wp/v2/users/' + SentrySettings.user,
 		    postData = JSON.parse( localStorage.getItem( url ) );
 		if ( false && postData ) {
 			this.setState({data: postData});
