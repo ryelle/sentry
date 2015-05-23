@@ -70,49 +70,10 @@ function sentry_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'sentry_scripts' );
 
-function sentry_get_json( $_post ) {
-
-	$tags = get_the_terms( $_post->data['id'], 'post_tag' );
-	if ( is_array( $tags ) ) {
-		$tags = array_values( wp_list_pluck( $tags, 'slug' ) );
-	} else {
-		$tags = [];
-	}
-
-	$status = get_the_terms( $_post->data['id'], 'category' );
-	if ( is_array( $status ) ) {
-		$status = wp_list_filter( $status, array( 'parent' => 0 ), 'NOT' );
-		if ( ! empty( $status ) ) {
-			$status = array_shift( $status );
-			$status = $status->slug;
-		}
-	} else {
-		$status = '';
-	}
-
-	$post = get_post( $_post->data['id'] );
-	$_post->data['order'] = $post->menu_order;
-
-	$_post->data['tags'] = $tags;
-	$_post->data['status'] = $status;
-
-	return $_post;
-}
-add_filter( 'rest_prepare_post', 'sentry_get_json' );
-
-function sentry_get_terms_args( $args, $taxonomies ){
-	if ( ! is_admin() && defined( 'REST_API_VERSION' ) && isset( $_GET['child_of'] ) ) {
-		if ( ! is_numeric( $_GET['child_of'] ) ) {
-			$parent = get_term_by( 'slug', $_GET['child_of'], 'category' );
-			$parent = $parent->term_id;
-		} else {
-			$parent = intval( $_GET['child_of'] );
-		}
-		$args['child_of'] = $parent;
-	}
-	return $args;
-}
-add_filter( 'get_terms_args', 'sentry_get_terms_args', 10, 2 );
+/**
+ * Load REST API customizations
+ */
+require get_template_directory() . '/inc/rest-api.php';
 
 /**
  * Load dynamic colors file.
