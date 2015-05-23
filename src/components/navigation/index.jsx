@@ -7,13 +7,13 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var User = require( './user' ),
-    loadFromServer = require( 'mixins/loadFromServer' );
+    Server = require( 'mixins/server' );
 
 /**
  * Renders list of posts
  */
 Navigation = React.createClass({
-	mixins: [ loadFromServer ],
+	mixins: [ Server ],
 
 	getInitialState: function() {
 		return {

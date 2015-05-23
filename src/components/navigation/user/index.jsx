@@ -6,13 +6,13 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var loadFromServer = require( 'mixins/loadFromServer' );
+var Server = require( 'mixins/server' );
 
 /**
  * Renders list of posts
  */
 User = React.createClass({
-	mixins: [ loadFromServer ],
+	mixins: [ Server ],
 
 	getInitialState: function() {
 		return {data: { avatar_url: SentrySettings.themeURL + '/images/default-user.gif' }};

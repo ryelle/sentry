@@ -7,14 +7,14 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var List = require( './list' ),
-    loadFromServer = require( 'mixins/loadFromServer' );
+    Server = require( 'mixins/server' );
 
 /**
  * Make it so…
  */
 
 var Project = React.createClass({
-	mixins: [ loadFromServer ],
+	mixins: [ Server ],
 
 	getInitialState: function() {
 		return {data: []};

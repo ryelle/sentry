@@ -8,14 +8,14 @@ var React = require( 'react/addons' );
  */
 var Task = require( './task' ),
     dragFunctions = require( 'mixins/dragFunctions' ),
-    loadFromServer = require( 'mixins/loadFromServer' );
+    Server = require( 'mixins/server' );
 
 /**
  * Make it so…
  */
 
 var List = React.createClass({
-	mixins: [ loadFromServer ],
+	mixins: [ Server ],
 
 	getInitialState: function() {
 		return {data: []};

@@ -1,4 +1,4 @@
-var loadFromServer = {
+var Server = {
 
 	getData: function() {
 		var postData = JSON.parse( localStorage.getItem( this.props.url ) );
@@ -77,4 +77,4 @@ var loadFromServer = {
 
 };
 
-module.exports = loadFromServer;
+module.exports = Server;
