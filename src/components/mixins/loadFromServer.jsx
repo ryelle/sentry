@@ -53,20 +53,20 @@ var loadFromServer = {
 			var url = '/wp-json/wp/v2/posts/' + post.id,
 				postData = {
 					id: post.id,
-					menu_order: post.order
+					order: post.order
 				};
 			console.log( postData );
 
 			jQuery.ajax({
 				url: url,
 				type: 'post',
+				data: postData,
 				dataType: 'json',
 				beforeSend: function( xhr, settings ) {
 					xhr.setRequestHeader('X-WP-Nonce', SentrySettings.nonce);
 				},
 				success: function(data) {
-					localStorage.setItem( url, JSON.stringify( data ) );
-					this.setState({data: data});
+					// Nothing??
 				}.bind(this),
 				error: function(xhr, status, err) {
 					console.error( url, status, err.toString() );
