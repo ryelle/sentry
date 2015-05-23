@@ -13,9 +13,9 @@ class Sentry_RestPosts {
 	 */
 	function register_post_fields() {
 		// Sort Order
-		register_api_field( 'post', 'menu_order', array(
-			'get_callback'    => array( $this, 'menu_order_get' ),
-			'update_callback' => array( $this, 'menu_order_update' )
+		register_api_field( 'post', 'order', array(
+			'get_callback'    => array( $this, 'order_get' ),
+			'update_callback' => array( $this, 'order_update' )
 		) );
 
 		// Tags
@@ -32,13 +32,13 @@ class Sentry_RestPosts {
 	}
 
 	// Grab the menu order
-	function menu_order_get( $_post, $field_name, $request ){
-		$post = get_post( $_post->data['id'] );
+	function order_get( $_post, $field_name, $request ){
+		$post = get_post( $_post['id'] );
 		return $post->menu_order;
 	}
 
 	// Update the menu order
-	function menu_order_update( $value, $_post, $field_name, $request ){
+	function order_update( $value, $_post, $field_name, $request ){
 		return wp_update_post( array(
 			'ID' => $_post->ID,
 			'menu_order' => intval( $value ),
@@ -49,7 +49,7 @@ class Sentry_RestPosts {
 	 * Get a list of tag slugs
 	 */
 	function tags_get( $_post, $field_name, $request ){
-		$tags = get_the_terms( $_post->data['id'], 'post_tag' );
+		$tags = get_the_terms( $_post['id'], 'post_tag' );
 		if ( is_array( $tags ) ) {
 			$tags = array_values( wp_list_pluck( $tags, 'slug' ) );
 		} else {
@@ -62,7 +62,7 @@ class Sentry_RestPosts {
 	 * Get the single child category, which corresponds to the task's status
 	 */
 	function status_get( $_post, $field_name, $request ){
-		$status = get_the_terms( $_post->data['id'], 'category' );
+		$status = get_the_terms( $_post['id'], 'category' );
 		if ( is_array( $status ) ) {
 			$status = wp_list_filter( $status, array( 'parent' => 0 ), 'NOT' );
 			if ( ! empty( $status ) ) {
