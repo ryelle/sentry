@@ -29,11 +29,13 @@ $color__link: royalblue;
 $color__link-visited: purple;
 $color__link-hover: midnightblue;
 
+$color__cancel: #E31414;
+
 $color__background-pre: #eee;
 $color__background-ins: #fff9c0;
 
-$color__border-button: none;
-$color__border-input: none;
+$color__border-button: transparent;
+$color__border-input: #ccc;
 
 body {
 	background: $color__background-body;
@@ -129,4 +131,15 @@ textarea {
 }
 .project .task {
 	background-color: $color__background-task;
+}
+
+// =======
+// Forms
+// =======
+.task-form {
+	background-color: $color__background-task;
+
+	.cancel {
+		color: $color__cancel;
+	}
 }

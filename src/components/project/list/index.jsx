@@ -9,6 +9,7 @@ var React = require( 'react/addons' );
 var Task = require( './task' ),
     dragFunctions = require( 'mixins/dragFunctions' ),
     Server = require( 'mixins/server' );
+    AddTask = require( '../add-task' );
 
 /**
  * Make it so…
@@ -18,7 +19,10 @@ var List = React.createClass({
 	mixins: [ Server ],
 
 	getInitialState: function() {
-		return {data: []};
+		return {
+			view: 'list',
+			data: []
+		};
 	},
 	componentDidMount: function() {
 		this.getData();
@@ -59,10 +63,36 @@ var List = React.createClass({
 		return list;
 	},
 
-	render: function() {
-		var data = _.sortBy( this.state.data, 'order' );
+	addTask: function( event ){
+		this.setState({ view: 'add' });
+	},
 
-		var self = this;
+	closeForm: function(){
+		this.setState({ view: 'view' });
+	},
+
+	renderHeader: function(){
+		return (
+			<header className="status-header" onDragOver={dragFunctions.dragOver}>
+				<h1 className="status-title">{this.props.name}</h1>
+			</header>
+		);
+	},
+
+	render: function() {
+		var self = this,
+			data = _.sortBy( this.state.data, 'order' );
+			theClasses = this.props.slug + ' list';
+
+		if ( this.state.view == 'add' || data.length == 0 ) {
+			var enableClose = data.length > 0;
+			return (
+				<div className={theClasses}>
+					{ this.renderHeader() }
+					<AddTask title={this.props.name} closeForm={this.closeForm} enableClose={ enableClose } />
+				</div>
+			);
+		}
 
 		var tasks = data.map( function ( post ) {
 			return (
@@ -70,17 +100,13 @@ var List = React.createClass({
 			);
 		});
 
-		var theClasses = this.props.slug + ' list';
-
 		return (
 			<div className={theClasses}>
-				<header className="status-header" onDragOver={dragFunctions.dragOver}>
-					<h1 className="status-title">{this.props.name}</h1>
-				</header>
+				{ this.renderHeader() }
 				<div className="dragspace" onDragOver={dragFunctions.dragOver}>
 					{ tasks }
 				</div>
-				<button className="add-task"><i className="fa fa-plus fa-2x"></i></button>
+				<button className="add-task" onClick={ this.addTask }><i className="fa fa-plus fa-2x"></i></button>
 			</div>
 		);
 	}

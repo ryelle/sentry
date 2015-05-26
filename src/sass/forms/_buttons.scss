@@ -2,11 +2,13 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
+	width: 100%;
 	border: none;
 	border-radius: 3px;
-	@include font-size( 1.4 );
-	line-height: 1;
+	@include font-size( 1.8 );
+	line-height: 1.6;
 	padding: $size__spacing/2 1em;
+	box-shadow: 0 2px 0 rgba( black, 0.7 );
 
 	&:hover {}
 
