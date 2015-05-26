@@ -49,6 +49,7 @@ function sentry_scripts() {
 	global $Airplane_Mode_Core;
 	if ( ! isset( $Airplane_Mode_Core ) || ! $Airplane_Mode_Core->enabled() ) {
 		wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', [], '4.3.0' );
+		wp_enqueue_style( 'type', 'http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic' );
 	}
 	wp_enqueue_style( 'sentry-style', get_stylesheet_uri(), [], SENTRY_VERSION );
 
