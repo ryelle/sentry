@@ -11,3 +11,19 @@ textarea {
 @import "headings";
 
 @import "copy";
+
+// Font Awesome fixer
+.airplane-mode {
+	.fa {
+		font-style: normal;
+		line-height: 1;
+	}
+
+	.fa-plus:before {
+		content: '+';
+	}
+
+	.fa-2x {
+		font-size: 2em;
+	}
+}

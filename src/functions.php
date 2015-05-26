@@ -71,6 +71,15 @@ function sentry_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'sentry_scripts' );
 
+function sentry_body_class( $classes ){
+	global $Airplane_Mode_Core;
+	if ( isset( $Airplane_Mode_Core ) && $Airplane_Mode_Core->enabled() ) {
+		$classes[] = 'airplane-mode';
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'sentry_body_class' );
+
 /**
  * Load REST API customizations
  */
