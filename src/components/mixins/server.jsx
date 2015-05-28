@@ -27,7 +27,7 @@ var Server = {
 	},
 
 	getUser: function() {
-		var url = '/wp-json/wp/v2/users/' + SentrySettings.user,
+		var url = SentrySettings.URL.root + '/users/' + SentrySettings.user,
 		    postData = JSON.parse( localStorage.getItem( url ) );
 		if ( false && postData ) {
 			this.setState({data: postData});
@@ -50,7 +50,7 @@ var Server = {
 	savePostOrder: function(){
 		// Send the updated order to the API.
 		_.each( this.state.data, function( post ){
-			var url = '/wp-json/wp/v2/posts/' + post.id,
+			var url = SentrySettings.URL.root + '/posts/' + post.id,
 				postData = {
 					id: post.id,
 					order: post.order

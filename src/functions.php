@@ -56,11 +56,13 @@ function sentry_scripts() {
 	wp_register_script( 'sentry-script', get_template_directory_uri() . '/js/sentry.js', array( 'jquery', 'underscore' ), SENTRY_VERSION, true );
 
 	wp_localize_script( 'sentry-script', 'SentrySettings', array(
-		'root' => esc_url_raw( get_rest_url() ),
 		'nonce' => wp_create_nonce( 'wp_rest' ),
-		'baseURL' => home_url(),
-		'themeURL' => get_template_directory_uri(),
 		'user' => get_current_user_id(),
+		'URL' => array(
+			'root' => esc_url_raw( get_rest_url( null, '/wp/v2' ) ),
+			'base' => esc_url_raw( home_url() ),
+			'theme' => esc_url_raw( get_template_directory_uri() ),
+		),
 		'colors' => array(
 			'personal' => '426c63',
 			'automattic' => '05668D',

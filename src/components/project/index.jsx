@@ -38,7 +38,7 @@ var Project = React.createClass({
 
 	render: function() {
 		var lists = this.state.data.map( function( cat ){
-			var url = "/wp-json/wp/v2/posts/?category_name=" + cat.slug;
+			var url = SentrySettings.URL.root + '/posts/?category_name=' + cat.slug;
 			return (
 				<List key={cat.id} url={url} name={cat.name} slug={cat.slug} />
 			)
@@ -47,7 +47,7 @@ var Project = React.createClass({
 		lists.push( this.newList() );
 
 		var color = SentrySettings.colors[this.props.current] || 'ff0000';
-		document.getElementById( 'sentry-color-css' ).href = SentrySettings.baseURL + '/sentry-css/' + color + '/';
+		document.getElementById( 'sentry-color-css' ).href = SentrySettings.URL.base + '/sentry-css/' + color + '/';
 
 		return (
 			<div className="project">

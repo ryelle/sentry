@@ -18,7 +18,7 @@ var Router = React.createClass({
 
 		page( '/category/:slug', function ( ctx ) {
 			var slug = ctx.params.slug;
-			var url = "/wp-json/wp/v2/terms/category/?child_of=" + slug;
+			var url = SentrySettings.URL.root +  '/terms/category/?child_of=' + slug;
 			self.setState({ component: <Project url={url} current={slug} /> });
 			self.refs.header.setState({ current: slug });
 		});
@@ -32,9 +32,10 @@ var Router = React.createClass({
 	},
 
 	render: function() {
+		var url = SentrySettings.URL.root + '/terms/category/?per_page=20';
 		return (
 			<div>
-				<Navigation ref="header" url="/wp-json/wp/v2/terms/category/?per_page=20" current="" />
+				<Navigation ref="header" url={url} current="" />
 				{ this.state.component }
 			</div>
 		);

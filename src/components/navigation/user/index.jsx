@@ -15,7 +15,7 @@ User = React.createClass({
 	mixins: [ Server ],
 
 	getInitialState: function() {
-		return {data: { avatar_url: SentrySettings.themeURL + '/images/default-user.gif' }};
+		return {data: { avatar_url: SentrySettings.URL.theme + '/images/default-user.gif' }};
 	},
 	componentDidMount: function() {
 		this.getUser();
