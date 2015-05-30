@@ -75,6 +75,27 @@ var Server = {
 		});
 	},
 
+	createPost: function( data ){
+		var url = SentrySettings.URL.root + '/posts/';
+		console.log( data );
+
+		jQuery.ajax({
+			url: url,
+			type: 'post',
+			data: data,
+			dataType: 'json',
+			beforeSend: function( xhr, settings ) {
+				xhr.setRequestHeader('X-WP-Nonce', SentrySettings.nonce);
+			},
+			success: function(data) {
+				console.log( "success", data );
+			}.bind(this),
+			error: function(xhr, status, err) {
+				console.error( url, status, err.toString() );
+			}.bind(this)
+		});
+	},
+
 };
 
 module.exports = Server;

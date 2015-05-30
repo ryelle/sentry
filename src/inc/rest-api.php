@@ -94,3 +94,41 @@ function sentry_get_terms_args( $args, $taxonomies ){
 	return $args;
 }
 add_filter( 'get_terms_args', 'sentry_get_terms_args', 10, 2 );
+
+
+/**
+ * Save the taxonomies when a new post is created via the form.
+ */
+function sentry_pre_insert_post( $prepared_post, $request ){
+	// Short-circuit if we're updating a post
+	if ( isset( $request['id'] ) ) {
+		return $prepared_post;
+	}
+	$project = $status = array();
+
+	if ( isset( $request['project'] ) ) {
+		if ( $term = term_exists( strtolower( $request['project'] ), 'category' ) ) {
+			$project = $term['term_id'];
+		}
+	}
+
+	if ( empty( $project ) ) {
+		return new WP_Error('no-project', 'No project found for this task' );
+	}
+
+	if ( isset( $request['category'] ) ) {
+		if ( $term = term_exists( strtolower( $request['category'] ), 'category', $project[0] ) ) {
+			$status = $term['term_id'];
+		}
+	}
+
+	$prepared_post->post_category = array( $project, $status );
+
+	if ( isset( $request['tags'] ) ) {
+		$tags = trim( $request['tags'], ', ' );
+		$prepared_post->tags_input = $tags;
+	}
+
+	return $prepared_post;
+}
+add_filter( 'rest_pre_insert_post', 'sentry_pre_insert_post', 10, 2 );

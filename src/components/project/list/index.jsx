@@ -89,7 +89,7 @@ var List = React.createClass({
 			return (
 				<div className={theClasses}>
 					{ this.renderHeader() }
-					<AddTask title={this.props.name} closeForm={this.closeForm} enableClose={ enableClose } />
+					<AddTask title={this.props.name} project={this.props.project} closeForm={this.closeForm} enableClose={ enableClose } />
 				</div>
 			);
 		}

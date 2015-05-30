@@ -37,10 +37,11 @@ var Project = React.createClass({
 	},
 
 	render: function() {
+		var self = this;
 		var lists = this.state.data.map( function( cat ){
 			var url = SentrySettings.URL.root + '/posts/?category_name=' + cat.slug;
 			return (
-				<List key={cat.id} url={url} name={cat.name} slug={cat.slug} />
+				<List key={cat.id} url={url} name={cat.name} slug={cat.slug} project={self.props.current} />
 			)
 		});
 
