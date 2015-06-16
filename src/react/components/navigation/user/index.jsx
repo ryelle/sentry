@@ -6,24 +6,17 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var Server = require( 'mixins/server' );
+var Server = require('store/server');
 
 /**
  * Renders list of posts
  */
 User = React.createClass({
-	mixins: [ Server ],
-
 	getInitialState: function() {
 		return {data: { avatar_url: SentrySettings.URL.theme + '/images/default-user.gif' }};
 	},
 	componentDidMount: function() {
-		this.getUser();
-	},
-	componentDidUpdate: function(prevProps, prevState) {
-		if ( prevProps !== this.props ) {
-			this.getUser();
-		}
+		this.setState({data: { avatar_url: SentrySettings.URL.theme + '/images/default-user.gif' }});
 	},
 
 	render: function() {

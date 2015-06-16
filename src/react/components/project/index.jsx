@@ -7,25 +7,18 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var List = require( './list' ),
-    Server = require( 'mixins/server' );
+    Server = require( 'store/server' );
 
 /**
  * Make it so…
  */
 
 var Project = React.createClass({
-	mixins: [ Server ],
-
 	getInitialState: function() {
 		return {data: []};
 	},
 	componentDidMount: function() {
-		this.getData();
-	},
-	componentDidUpdate: function(prevProps, prevState) {
-		if ( prevProps !== this.props ) {
-			this.getData();
-		}
+		this.setState({ data: [] });
 	},
 
 	newList: function(){

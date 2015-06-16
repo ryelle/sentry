@@ -7,8 +7,8 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var Task = require( './task' ),
-    dragFunctions = require( 'mixins/dragFunctions' ),
-    Server = require( 'mixins/server' );
+    dragFunctions = require( 'store/dragFunctions' ),
+    Server = require( 'store/server' );
     AddTask = require( '../add-task' );
 
 /**
@@ -16,7 +16,6 @@ var Task = require( './task' ),
  */
 
 var List = React.createClass({
-	mixins: [ Server ],
 
 	getInitialState: function() {
 		return {
@@ -25,12 +24,10 @@ var List = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.getData();
-	},
-	componentDidUpdate: function(prevProps, prevState) {
-		if ( prevProps !== this.props ) {
-			this.getData();
-		}
+		this.setState({
+			view: 'list',
+			data: []
+		});
 	},
 
 	updateSorting: function( pid, position ) {

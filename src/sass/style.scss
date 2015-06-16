@@ -55,11 +55,11 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
 /*--------------------------------------------------------------
 # Components
 --------------------------------------------------------------*/
-@import "../components/navigation/style";
-@import "../components/project/style";
-@import "../components/project/list/style";
-@import "../components/project/list/task/style";
-@import "../components/project/add-task/style";
+@import "../react/components/navigation/style";
+@import "../react/components/project/style";
+@import "../react/components/project/list/style";
+@import "../react/components/project/list/task/style";
+@import "../react/components/project/add-task/style";
 
 /*--------------------------------------------------------------
 # Media

@@ -7,7 +7,7 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var User = require( './user' ),
-    Server = require( 'mixins/server' );
+    Server = require( 'store/server' );
 
 /**
  * Renders list of posts
@@ -22,12 +22,11 @@ Navigation = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.getData();
-	},
-	componentDidUpdate: function(prevProps, prevState) {
-		if ( prevProps !== this.props ) {
-			this.getData();
-		}
+		// Get from server
+		this.setState({
+			data: [],
+			current: null
+		});
 	},
 
 	render: function() {

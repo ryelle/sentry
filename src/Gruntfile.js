@@ -30,34 +30,34 @@ module.exports = function(grunt) {
 
 		react: {
 			app: {
-				src:  'components/' + THEME_NAME + '.jsx',
-				dest: 'components/' + THEME_NAME + '.js'
+				src:  'react/' + THEME_NAME + '.jsx',
+				dest: 'react/' + THEME_NAME + '.js'
 			}
 		},
 		browserify: {
 			options: {
 				transform: [ require('grunt-react').browserify ],
 				alias: [
-					'./components/mixins/server:mixins/server',
-					'./components/mixins/dragFunctions:mixins/dragFunctions'
+					'./react/store/server:store/server',
+					'./react/store/dragFunctions:store/dragFunctions'
 				],
 				browserifyOptions : {
 					extensions: [ '.js','.json','.jsx' ]
 				}
 			},
 			app: {
-				src:  'components/' + THEME_NAME + '.js',
+				src:  'react/' + THEME_NAME + '.js',
 				dest: 'js/' + THEME_NAME + '.js'
 			}
 		},
 
 		watch: {
 			css: {
-				files: [ 'components/**/*.scss', 'sass/**/*.scss' ],
+				files: [ 'react/components/**/*.scss', 'sass/**/*.scss' ],
 				tasks: [ 'sass:dev', 'autoprefixer:dev' ]
 			},
 			js: {
-				files: [ 'components/**/*.jsx' ],
+				files: [ 'react/components/**/*.jsx' ],
 				tasks: [ 'react:app', 'browserify:app' ]
 			}
 		}
