@@ -7,9 +7,9 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var Task = require( './task' ),
-    dragFunctions = require( 'store/dragFunctions' ),
-    Server = require( 'store/server' ),
-    AddTask = require( '../add-task' );
+	dragFunctions = require( 'utils/dragFunctions' ),
+	Server = require( 'utils/server' ),
+	AddTask = require( '../add-task' );
 
 /**
  * Make it so…

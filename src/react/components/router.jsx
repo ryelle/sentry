@@ -8,7 +8,7 @@ var React = require( 'react/addons' ),
  * Internal dependencies
  */
 var Project = require( './project' ),
-    Navigation = require( './navigation' );
+	Navigation = require( './navigation' );
 
 var Router = React.createClass({
 

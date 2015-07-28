@@ -7,7 +7,7 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var User = require( '../user' ),
-    Server = require( 'store/server' );
+	Server = require( 'utils/server' );
 
 /**
  * Renders list of posts
@@ -31,7 +31,7 @@ var Navigation = React.createClass({
 
 	render: function() {
 		var self = this,
-		    projects = this.state.data.map( function ( cat ) {
+			projects = this.state.data.map( function ( cat ) {
 				if ( "uncategorized" == cat.slug || cat.parent > 0 ) return null;
 				var displayName = ( cat.name.length > 2 )? cat.name.slice( 0, 1 ): cat.name;
 				var theClasses = 'project-link';
