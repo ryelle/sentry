@@ -11,7 +11,7 @@ var Server = require('store/server');
 /**
  * Renders list of posts
  */
-User = React.createClass({
+var User = React.createClass({
 	getInitialState: function() {
 		return {data: { avatar_url: SentrySettings.URL.theme + '/images/default-user.gif' }};
 	},
