@@ -8,7 +8,7 @@ var React = require( 'react/addons' );
  */
 var Task = require( './task' ),
     dragFunctions = require( 'store/dragFunctions' ),
-    Server = require( 'store/server' );
+    Server = require( 'store/server' ),
     AddTask = require( '../add-task' );
 
 /**

@@ -11,7 +11,7 @@ var Server = require( 'store/server' );
 /**
  * Renders list of posts
  */
-AddTask = React.createClass({
+var AddTask = React.createClass({
 	submit: function( event ){
 		event.preventDefault();
 

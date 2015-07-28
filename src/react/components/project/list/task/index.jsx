@@ -11,7 +11,7 @@ var dragFunctions = require( 'store/dragFunctions' );
 /**
  * Renders list of posts
  */
-Task = React.createClass({
+var Task = React.createClass({
 	mixins: [ dragFunctions ],
 
 	render: function() {
