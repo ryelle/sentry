@@ -78,7 +78,7 @@ var List = React.createClass({
 
 	render: function() {
 		var self = this,
-			data = _.sortBy( this.state.data, 'order' );
+			data = _.sortBy( this.state.data, 'order' ),
 			theClasses = this.props.slug + ' list';
 
 		if ( this.state.view == 'add' || data.length == 0 ) {

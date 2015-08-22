@@ -1,104 +1,157 @@
-var AppDispatcher = require('../dispatchers/app-dispatcher');
-var AppConstants = require('../constants/app-constants');
-var merge = require('react/lib/merge');
-var EventEmitter = require('events').EventEmitter;
+/**
+ * External dependencies
+ */
+var assign = require('object-assign'),
+	EventEmitter = require('events').EventEmitter,
+	page = require( 'page' );
 
-var CHANGE_EVENT = "change";
+/**
+ * Internal dependencies
+ */
+var AppDispatcher = require('../dispatchers/dispatcher'),
+	AppConstants = require('../constants/constants');
 
-var _catalog = [];
+var CHANGE_EVENT = 'change';
 
-for ( var i=1; i<9; i++ ) {
-	_catalog.push({
-		'id': 'Widget' +i,
-		'title':'Widget #' + i,
-		'summary': 'This is an awesome widget!',
-		'description': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, commodi.',
-		'img': '/assets/product.png',
-		'cost': i
-	});
+/**
+ * Our working project list
+ * @type {array}
+ * @protected
+ */
+var _projects = [];
+
+/**
+ * Our working "lists" list
+ * @type {array}
+ * @protected
+ */
+var _lists = [];
+
+/**
+ * Our working task list
+ * @type {array}
+ * @protected
+ */
+var _tasks = [];
+
+/**
+ * Load this array into our projects list
+ *
+ * @param {array} data - array of current projects, pulled from API
+ */
+function _loadProjects( data ) {
+	_projects = data;
 }
 
-var _cartItems = [];
-
-function _removeItem(index){
-	_cartItems[index].inCart = false;
-	_cartItems.splice(index, 1);
+/**
+ * Load this array into our "lists" list
+ *
+ * @param {array} data - array of lists, pulled from API
+ */
+function _loadLists( data ) {
+	_lists = data;
 }
 
-function _increaseItem(index){
-	_cartItems[index].qty++;
+/**
+ * Load this array into our task list
+ *
+ * @param {array} data - array of tasks, pulled from API
+ */
+function _loadTasks( data ) {
+	_tasks = data;
 }
 
-function _decreaseItem(index){
-	if(_cartItems[index].qty>1){
-		_cartItems[index].qty--;
-	}
-	else {
-		_removeItem(index);
-	}
-}
-
-
-function _addItem(item){
-	if(!item.inCart){
-		item['qty'] = 1;
-		item['inCart'] = true;
-		_cartItems.push(item);
-	}
-	else {
-		_cartItems.forEach(function(cartItem, i){
-			if(cartItem.id===item.id){
-				_increaseItem(i);
-			}
-		});
-	}
-}
-
-
-var AppStore = merge(EventEmitter.prototype, {
-	emitChange:function(){
-		this.emit(CHANGE_EVENT)
+var AppStore = assign({}, EventEmitter.prototype, {
+	emitChange: function() {
+		this.emit( CHANGE_EVENT );
 	},
 
-	addChangeListener:function(callback){
-		this.on(CHANGE_EVENT, callback)
+	addChangeListener: function( callback ) {
+		this.on( CHANGE_EVENT, callback );
 	},
 
-	removeChangeListener:function(callback){
-		this.removeListener(CHANGE_EVENT, callback)
+	removeChangeListener: function( callback ){
+		this.removeListener( CHANGE_EVENT, callback );
 	},
 
-	getCart:function(){
-		return _cartItems
+	/**
+	 * Get the projects list
+	 *
+	 * @returns {array}
+	 */
+	getProjects: function() {
+		return _projects;
 	},
 
-	getCatalog:function(){
-		return _catalog
+	/**
+	 * Get a single project by ID
+	 *
+	 * @returns {object}
+	 */
+	getProject: function( id ) {
+		var project = {};
+		return project;
 	},
 
-	dispatcherIndex:AppDispatcher.register(function(payload){
+	/**
+	 * Get the "lists" list
+	 *
+	 * @returns {array}
+	 */
+	getLists: function() {
+		return _lists;
+	},
+
+	/**
+	 * Get a single list by ID
+	 *
+	 * @returns {object}
+	 */
+	getList: function( id ) {
+		var list = {};
+		return list;
+	},
+
+	/**
+	 * Get the tasks list
+	 *
+	 * @returns {array}
+	 */
+	getTasks: function() {
+		return _tasks;
+	},
+
+	/**
+	 * Get a single task by ID
+	 *
+	 * @returns {object}
+	 */
+	getTask: function( id ) {
+		var task = {};
+		return task;
+	},
+
+	// Watch for store actions, and dispatch the above functions as necessary.
+	dispatcherIndex: AppDispatcher.register( function( payload ) {
 		var action = payload.action; // this is our action from handleViewAction
-		switch(action.actionType){
-			case AppConstants.ADD_ITEM:
-				_addItem(payload.action.item);
-				break;
 
-			case AppConstants.REMOVE_ITEM:
-				_removeItem(payload.action.index);
+		switch( action.actionType ){
+			case AppConstants.RECEIVE_PROJECTS:
+				_loadProjects( action.data );
 				break;
-
-			case AppConstants.INCREASE_ITEM:
-				_increaseItem(payload.action.index);
+			case AppConstants.RECEIVE_LISTS:
+				_loadLists( action.data );
 				break;
-
-			case AppConstants.DECREASE_ITEM:
-				_decreaseItem(payload.action.index);
+			case AppConstants.RECEIVE_TASKS:
+				_loadTasks( action.data );
 				break;
 		}
+
 		AppStore.emitChange();
 
 		return true;
 	})
-})
+
+});
 
 module.exports = AppStore;

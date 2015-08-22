@@ -1,99 +1,57 @@
+/* global jQuery */
+/**
+ * Internal dependencies
+ */
+var Actions = require('../actions/actions');
+
+/**
+ * The API URL prefix
+ * @type {string}
+ * @protected
+ */
+var _URL = '';
+
+var _get = function( url, callback ) {
+	jQuery.ajax({
+		url: url,
+		dataType: 'json',
+		success: function(data) {
+			if ( data.constructor !== Array ) {
+				data = [ data ];
+			}
+			callback( data );
+		}.bind(this),
+		error: function(xhr, status, err) {
+			console.error( url, status, err.toString() );
+		}.bind(this)
+	});
+};
+
 var Server = {
 
-	getData: function() {
-		var postData = JSON.parse( localStorage.getItem( this.props.url ) );
-		if ( false && postData ) {
-			this.setState({data: postData});
-		} else {
-			// Always AJAX, to check for new posts.
-			jQuery.ajax({
-				url: this.props.url,
-				dataType: 'json',
-				success: function(data) {
-					if ( data.constructor !== Array ) {
-						data = [ data ];
-					}
-					localStorage.setItem( this.props.url, JSON.stringify( data ) );
-					this.setState({data: data});
-				}.bind(this),
-				error: function(xhr, status, err) {
-					console.error(this.props.url, status, err.toString());
-				}.bind(this)
-			});
-		}
+	getProjects: function( url ) {
+		// Set up AJAX request
+		// console.log( url );
+		_get( url, Actions.fetchProjects );
 
 		// Scoll to top on page change
 		window.scroll(0,0);
 	},
 
-	getUser: function() {
-		var url = SentrySettings.URL.root + '/users/' + SentrySettings.user,
-		    postData = JSON.parse( localStorage.getItem( url ) );
-		if ( false && postData ) {
-			this.setState({data: postData});
-		} else {
-			// Always AJAX, to check for new posts.
-			jQuery.ajax({
-				url: url,
-				dataType: 'json',
-				success: function(data) {
-					localStorage.setItem( url, JSON.stringify( data ) );
-					this.setState({data: data});
-				}.bind(this),
-				error: function(xhr, status, err) {
-					console.error( url, status, err.toString() );
-				}.bind(this)
-			});
-		}
+	getLists: function() {
+		// Set up AJAX request
+		_get( this.props.url, Actions.fetchLists );
+
+		// Scoll to top on page change
+		window.scroll(0,0);
 	},
 
-	savePostOrder: function(){
-		// Send the updated order to the API.
-		_.each( this.state.data, function( post ){
-			var url = SentrySettings.URL.root + '/posts/' + post.id,
-				postData = {
-					id: post.id,
-					order: post.order
-				};
-			console.log( postData );
+	getTasks: function() {
+		// Set up AJAX request
+		_get( this.props.url, Actions.fetchTasks );
 
-			jQuery.ajax({
-				url: url,
-				type: 'post',
-				data: postData,
-				dataType: 'json',
-				beforeSend: function( xhr, settings ) {
-					xhr.setRequestHeader('X-WP-Nonce', SentrySettings.nonce);
-				},
-				success: function(data) {
-					// Nothing??
-				}.bind(this),
-				error: function(xhr, status, err) {
-					console.error( url, status, err.toString() );
-				}.bind(this)
-			});
-		});
-	},
-
-	createPost: function( data ){
-		var url = SentrySettings.URL.root + '/posts/';
-		console.log( data );
-
-		jQuery.ajax({
-			url: url,
-			type: 'post',
-			data: data,
-			dataType: 'json',
-			beforeSend: function( xhr, settings ) {
-				xhr.setRequestHeader('X-WP-Nonce', SentrySettings.nonce);
-			},
-			success: function(data) {
-				console.log( "success", data );
-			}.bind(this),
-			error: function(xhr, status, err) {
-				console.error( url, status, err.toString() );
-			}.bind(this)
-		});
+		// Scoll to top on page change
+		window.scroll(0,0);
 	},
 
 };

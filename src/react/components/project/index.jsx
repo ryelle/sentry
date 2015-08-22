@@ -7,18 +7,34 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var List = require( './list' ),
-    Server = require( 'store/server' );
+	AppStore = require('store/app-store'),
+	API = require( 'utils/server' );
 
 /**
- * Make it so…
+ * Method to retrieve state from Stores
  */
+function getState() {
+	return {
+		data: AppStore.getProjects()
+	};
+}
 
+/**
+ * Project component
+ */
 var Project = React.createClass({
 	getInitialState: function() {
-		return {data: []};
+		return getState();
 	},
 	componentDidMount: function() {
-		this.setState({ data: [] });
+		API.getProjects( this.props.url );
+		AppStore.addChangeListener(this._onChange);
+	},
+	componentWillUnmount: function() {
+		AppStore.removeChangeListener(this._onChange);
+	},
+	_onChange: function() {
+		this.setState( getState() );
 	},
 
 	newList: function(){

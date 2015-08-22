@@ -6,7 +6,7 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var dragFunctions = require( 'store/dragFunctions' );
+var dragFunctions = require( 'utils/dragFunctions' );
 
 /**
  * Renders list of posts

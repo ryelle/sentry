@@ -6,7 +6,7 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var Server = require( 'store/server' );
+var Server = require( 'utils/server' );
 
 /**
  * Renders list of posts

@@ -38,8 +38,8 @@ module.exports = function(grunt) {
 			options: {
 				transform: [ require('grunt-react').browserify ],
 				alias: [
-					'./react/store/server:store/server',
-					'./react/store/dragFunctions:store/dragFunctions'
+					'./react/utils/server:utils/server',
+					'./react/utils/dragFunctions:utils/dragFunctions'
 				],
 				browserifyOptions : {
 					extensions: [ '.js','.json','.jsx' ]
