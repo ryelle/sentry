@@ -7,26 +7,36 @@ var React = require( 'react/addons' );
  * Internal dependencies
  */
 var User = require( '../user' ),
-	Server = require( 'utils/server' );
+	AppStore = require('store/app-store'),
+	API = require( 'utils/server' );
+
+/**
+ * Method to retrieve state from Stores
+ */
+function getState() {
+	return {
+		data: AppStore.getProjects(),
+		current: null,
+	};
+}
 
 /**
  * Renders list of posts
  */
 var Navigation = React.createClass({
-	mixins: [ Server ],
 
 	getInitialState: function() {
-		return {
-			data: [],
-			current: null
-		};
+		return getState();
 	},
 	componentDidMount: function() {
-		// Get from server
-		this.setState({
-			data: [],
-			current: null
-		});
+		API.getProjects( this.props.url );
+		AppStore.addChangeListener( this._onChange );
+	},
+	componentWillUnmount: function() {
+		AppStore.removeChangeListener( this._onChange );
+	},
+	_onChange: function() {
+		this.setState( getState() );
 	},
 
 	render: function() {

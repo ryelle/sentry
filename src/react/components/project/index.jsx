@@ -15,7 +15,7 @@ var List = require( './list' ),
  */
 function getState() {
 	return {
-		data: AppStore.getProjects()
+		data: AppStore.getLists()
 	};
 }
 
@@ -27,11 +27,11 @@ var Project = React.createClass({
 		return getState();
 	},
 	componentDidMount: function() {
-		API.getProjects( this.props.url );
-		AppStore.addChangeListener(this._onChange);
+		API.getLists( this.props.url );
+		AppStore.addChangeListener( this._onChange );
 	},
 	componentWillUnmount: function() {
-		AppStore.removeChangeListener(this._onChange);
+		AppStore.removeChangeListener( this._onChange );
 	},
 	_onChange: function() {
 		this.setState( getState() );
@@ -46,17 +46,16 @@ var Project = React.createClass({
 	},
 
 	render: function() {
-		var self = this;
-		var lists = this.state.data.map( function( cat ){
-			var url = SentrySettings.URL.root + '/posts/?category_name=' + cat.slug;
+		var lists = this.state.data.map( function( cat, i ) {
+			var url = SentrySettings.URL.root + '/posts/?filter[category_name]=' + cat.slug;
 			return (
-				<List key={cat.id} url={url} name={cat.name} slug={cat.slug} project={self.props.current} />
+				<List key={ i } url={ url } name={ cat.name } slug={ cat.slug } project={ this.props.current } />
 			)
-		});
+		}.bind( this ) );
 
 		lists.push( this.newList() );
 
-		var color = SentrySettings.colors[this.props.current] || 'ff0000';
+		var color = SentrySettings.colors[ this.props.current ] || 'ff0000';
 		document.getElementById( 'sentry-color-css' ).href = SentrySettings.URL.base + '/sentry-css/' + color + '/';
 
 		return (

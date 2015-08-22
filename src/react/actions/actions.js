@@ -29,12 +29,15 @@ var Actions = {
 	},
 
 	/**
-	 * @param  {array}  tasks
+	 * @param  {object}  data
+	 * @param  {string}  data.list
+	 * @param  {array}  data.tasks
 	 */
-	fetchTasks: function( tasks ) {
+	fetchTasks: function( data ) {
 		AppDispatcher.handleViewAction({
 			actionType: AppConstants.RECEIVE_TASKS,
-			data: tasks
+			list: data[0].status,
+			tasks: data
 		});
 	},
 

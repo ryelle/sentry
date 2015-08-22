@@ -1,112 +1,122 @@
 /**
  * External dependencies
  */
-var React = require( 'react/addons' );
+var React = require( 'react/addons' ),
+	classNames = require( 'classnames' );
 
 /**
  * Internal dependencies
  */
-var Task = require( './task' ),
+var AppStore = require( 'store/app-store' ),
+	API = require( 'utils/server' ),
 	dragFunctions = require( 'utils/dragFunctions' ),
-	Server = require( 'utils/server' ),
+	Task = require( './task' ),
 	AddTask = require( '../add-task' );
 
+
 /**
- * Make it so…
+ * Method to retrieve state from Stores
  */
+function getState( list ) {
+	return {
+		view: 'list',
+		data: AppStore.getTasks( list )
+	};
+}
 
-var List = React.createClass({
-
+/**
+ * List component
+ */
+var List = React.createClass( {
 	getInitialState: function() {
-		return {
-			view: 'list',
-			data: []
-		};
+		return getState( this.props.slug );
 	},
 	componentDidMount: function() {
-		this.setState({
-			view: 'list',
-			data: []
-		});
+		API.getTasks( this.props.url );
+		AppStore.addChangeListener( this._onChange );
+	},
+	componentWillUnmount: function() {
+		AppStore.removeChangeListener( this._onChange );
+	},
+	_onChange: function() {
+		this.setState( getState( this.props.slug ) );
 	},
 
 	updateSorting: function( pid, position ) {
-		var self = this;
-		var updatedData = self.resetOrder( self.state.data );
-		updatedData = self.state.data.map( function ( post ) {
+		var updatedData = this.resetOrder( this.state.data );
+		updatedData = this.state.data.map( function( post ) {
 			if ( pid === post.id ) {
 				console.log( "Moving " + post.title.rendered + " to " + position + "..." );
 				if ( position > 0 ){
 					position--;
-					post.order = self.state.data[ position ].order + 0.5;
+					post.order = this.state.data[ position ].order + 0.5;
 				} else {
 					post.order = -1;
 				}
 			}
 			return post;
-		});
-		updatedData = self.resetOrder( _.sortBy( updatedData, 'order' ) );
-		this.setState({ data: updatedData }, this.savePostOrder );
+		}.bind( this ) );
+		updatedData = this.resetOrder( _.sortBy( updatedData, 'order' ) );
+		this.setState( { data: updatedData }, this.savePostOrder );
 	},
 
 	resetOrder: function( list ) {
 		// Silly function
 		var order = 0;
-		list = list.map( function ( post ) {
+		list = list.map( function( post ) {
 			post.order = order;
 			order++;
 			return post;
-		});
+		} );
 		return list;
 	},
 
 	addTask: function( event ){
-		this.setState({ view: 'add' });
+		this.setState( { view: 'add' } );
 	},
 
 	closeForm: function(){
-		this.setState({ view: 'view' });
+		this.setState( { view: 'view' } );
 	},
 
 	renderHeader: function(){
 		return (
-			<header className="status-header" onDragOver={dragFunctions.dragOver}>
-				<h1 className="status-title">{this.props.name}</h1>
+			<header className="status-header" onDragOver={ dragFunctions.dragOver }>
+				<h1 className="status-title">{ this.props.name }</h1>
 			</header>
 		);
 	},
 
 	render: function() {
-		var self = this,
-			data = _.sortBy( this.state.data, 'order' ),
-			theClasses = this.props.slug + ' list';
+		var data = _.sortBy( this.state.data, 'order' ),
+			theClasses = classNames( this.props.slug, 'list' );
 
 		if ( this.state.view == 'add' || data.length == 0 ) {
 			var enableClose = data.length > 0;
 			return (
-				<div className={theClasses}>
+				<div className={ theClasses }>
 					{ this.renderHeader() }
-					<AddTask title={this.props.name} project={this.props.project} closeForm={this.closeForm} enableClose={ enableClose } />
+					<AddTask title={ this.props.name } project={ this.props.project } closeForm={ this.closeForm } enableClose={ enableClose } />
 				</div>
 			);
 		}
 
-		var tasks = data.map( function ( post ) {
+		var tasks = data.map( function( post, i ) {
 			return (
-				<Task key={post.id} id={post.id} link={post.link} title={post.title} date={post.date} content={post.content} tags={post.tags} featured_image={ post.featured_image } onUpdateSorting={self.updateSorting} order={post.order} />
+				<Task { ...post } key={ i } title={ post.title.rendered } content={ post.content.rendered } onUpdateSorting={ this.updateSorting } />
 			);
-		});
+		}.bind( this ) );
 
 		return (
-			<div className={theClasses}>
+			<div className={ theClasses }>
 				{ this.renderHeader() }
-				<div className="dragspace" onDragOver={dragFunctions.dragOver}>
+				<div className="dragspace" onDragOver={ dragFunctions.dragOver }>
 					{ tasks }
 				</div>
 				<button className="add-task" onClick={ this.addTask }><i className="fa fa-plus fa-2x"></i></button>
 			</div>
 		);
 	}
-});
+} );
 
 module.exports = List;

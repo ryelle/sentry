@@ -28,11 +28,11 @@ var _projects = [];
 var _lists = [];
 
 /**
- * Our working task list
- * @type {array}
+ * Our working task lists
+ * @type {object}
  * @protected
  */
-var _tasks = [];
+var _tasks = {};
 
 /**
  * Load this array into our projects list
@@ -55,10 +55,11 @@ function _loadLists( data ) {
 /**
  * Load this array into our task list
  *
- * @param {array} data - array of tasks, pulled from API
+ * @param {string} list - name of list for this task set
+ * @param {array} tasks - array of tasks, pulled from API
  */
-function _loadTasks( data ) {
-	_tasks = data;
+function _loadTasks( list, tasks ) {
+	_tasks[ list ] = tasks;
 }
 
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -117,8 +118,8 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	 *
 	 * @returns {array}
 	 */
-	getTasks: function() {
-		return _tasks;
+	getTasks: function( list ) {
+		return _tasks[ list ];
 	},
 
 	/**
@@ -143,7 +144,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 				_loadLists( action.data );
 				break;
 			case AppConstants.RECEIVE_TASKS:
-				_loadTasks( action.data );
+				_loadTasks( action.list, action.tasks );
 				break;
 		}
 

@@ -20,10 +20,10 @@ var _get = function( url, callback ) {
 				data = [ data ];
 			}
 			callback( data );
-		}.bind(this),
+		}.bind( this ),
 		error: function(xhr, status, err) {
 			console.error( url, status, err.toString() );
-		}.bind(this)
+		}.bind( this )
 	});
 };
 
@@ -31,27 +31,17 @@ var Server = {
 
 	getProjects: function( url ) {
 		// Set up AJAX request
-		// console.log( url );
 		_get( url, Actions.fetchProjects );
-
-		// Scoll to top on page change
-		window.scroll(0,0);
 	},
 
-	getLists: function() {
+	getLists: function( url ) {
 		// Set up AJAX request
-		_get( this.props.url, Actions.fetchLists );
-
-		// Scoll to top on page change
-		window.scroll(0,0);
+		_get( url, Actions.fetchLists );
 	},
 
-	getTasks: function() {
+	getTasks: function( url ) {
 		// Set up AJAX request
-		_get( this.props.url, Actions.fetchTasks );
-
-		// Scoll to top on page change
-		window.scroll(0,0);
+		_get( url, Actions.fetchTasks );
 	},
 
 };
