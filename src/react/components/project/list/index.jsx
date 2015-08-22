@@ -57,7 +57,7 @@ var List = React.createClass( {
 			return post;
 		}.bind( this ) );
 		updatedData = this.resetOrder( _.sortBy( updatedData, 'order' ) );
-		this.setState( { data: updatedData }, this.savePostOrder );
+		this.setState( { data: updatedData }, API.saveTaskOrder.bind( null, this.state.data ) );
 	},
 
 	resetOrder: function( list ) {
