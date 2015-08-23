@@ -77,6 +77,12 @@ var Server = {
 		});
 	},
 
+	createTask: function( data ){
+		// Send the updated order to the API.
+		var url = SentrySettings.URL.root + '/posts/';
+		_post( url, data, _noop );
+	},
+
 };
 
 module.exports = Server;

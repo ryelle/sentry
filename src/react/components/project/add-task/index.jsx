@@ -6,27 +6,27 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var Server = require( 'utils/server' );
+var API = require( 'utils/server' );
 
 /**
  * Renders list of posts
  */
-var AddTask = React.createClass({
-	submit: function( event ){
+var AddTask = React.createClass( {
+	submit: function( event ) {
 		event.preventDefault();
 
 		var project = event.target['task-project'].value,
 			cats = event.target['task-category'].value,
 			tags = event.target['task-tags'].value.replace( cats, '' );
 
-		Server.createPost({
+		API.createTask( {
 			title: event.target['task-name'].value,
 			type: 'post',
 			status: 'publish',
 			project: project,
 			category: cats,
 			tags: tags,
-		});
+		} );
 	},
 
 	render: function() {
