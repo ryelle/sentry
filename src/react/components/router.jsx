@@ -8,20 +8,17 @@ var React = require( 'react/addons' ),
  * Internal dependencies
  */
 var Project = require( './project' ),
-    Navigation = require( './navigation' );
+	Navigation = require( './navigation' );
 
 var Router = React.createClass({
 
 	componentDidMount: function() {
-
-		var self = this;
-
 		page( '/category/:slug', function ( ctx ) {
 			var slug = ctx.params.slug;
 			var url = SentrySettings.URL.root +  '/terms/category/?child_of=' + slug;
-			self.setState({ component: <Project url={url} current={slug} /> });
-			self.refs.header.setState({ current: slug });
-		});
+			this.setState( { component: <Project url={url} current={slug} /> } );
+			this.refs.header.setState( { current: slug } );
+		}.bind( this ) );
 
 		page.start();
 
@@ -35,7 +32,7 @@ var Router = React.createClass({
 		var url = SentrySettings.URL.root + '/terms/category/?per_page=20';
 		return (
 			<div>
-				<Navigation ref="header" url={url} current="" />
+				<Navigation ref='header' url={ url } current='' />
 				{ this.state.component }
 			</div>
 		);

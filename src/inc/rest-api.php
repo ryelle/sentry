@@ -90,6 +90,8 @@ function sentry_get_terms_args( $args, $taxonomies ){
 			$parent = intval( $_GET['child_of'] );
 		}
 		$args['child_of'] = $parent;
+		$args['orderby'] = 'slug';
+		$args['order'] = 'asc';
 	}
 	return $args;
 }

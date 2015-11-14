@@ -6,29 +6,27 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var Server = require( 'mixins/server' );
+var API = require( 'utils/server' );
 
 /**
  * Renders list of posts
  */
-AddTask = React.createClass({
-	mixins: [ Server ],
-
-	submit: function( event ){
+var AddTask = React.createClass( {
+	submit: function( event ) {
 		event.preventDefault();
 
 		var project = event.target['task-project'].value,
 			cats = event.target['task-category'].value,
 			tags = event.target['task-tags'].value.replace( cats, '' );
 
-		this.createPost({
+		API.createTask( {
 			title: event.target['task-name'].value,
 			type: 'post',
 			status: 'publish',
 			project: project,
 			category: cats,
 			tags: tags,
-		});
+		} );
 	},
 
 	render: function() {

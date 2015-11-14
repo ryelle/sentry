@@ -6,33 +6,42 @@ var React = require( 'react/addons' );
 /**
  * Internal dependencies
  */
-var User = require( './user' ),
-    Server = require( 'mixins/server' );
+var User = require( '../user' ),
+	AppStore = require('store/app-store'),
+	API = require( 'utils/server' );
+
+/**
+ * Method to retrieve state from Stores
+ */
+function getState() {
+	return {
+		data: AppStore.getProjects(),
+		current: null,
+	};
+}
 
 /**
  * Renders list of posts
  */
-Navigation = React.createClass({
-	mixins: [ Server ],
+var Navigation = React.createClass({
 
 	getInitialState: function() {
-		return {
-			data: [],
-			current: null
-		};
+		return getState();
 	},
 	componentDidMount: function() {
-		this.getData();
+		API.getProjects( this.props.url );
+		AppStore.addChangeListener( this._onChange );
 	},
-	componentDidUpdate: function(prevProps, prevState) {
-		if ( prevProps !== this.props ) {
-			this.getData();
-		}
+	componentWillUnmount: function() {
+		AppStore.removeChangeListener( this._onChange );
+	},
+	_onChange: function() {
+		this.setState( getState() );
 	},
 
 	render: function() {
 		var self = this,
-		    projects = this.state.data.map( function ( cat ) {
+			projects = this.state.data.map( function ( cat ) {
 				if ( "uncategorized" == cat.slug || cat.parent > 0 ) return null;
 				var displayName = ( cat.name.length > 2 )? cat.name.slice( 0, 1 ): cat.name;
 				var theClasses = 'project-link';
