@@ -62,6 +62,17 @@ function _loadTasks( list, tasks ) {
 	_tasks[ list ] = tasks;
 }
 
+/**
+ * Load a single task into our task list
+ *
+ * @param {string} list - name of list for this task set
+ * @param {array} tasks - tasks object, recently added to site
+ */
+function _loadTask( list, task ) {
+	console.log( task );
+	_tasks[ list ].push( task );
+}
+
 var AppStore = assign({}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit( CHANGE_EVENT );
@@ -145,6 +156,9 @@ var AppStore = assign({}, EventEmitter.prototype, {
 				break;
 			case AppConstants.RECEIVE_TASKS:
 				_loadTasks( action.list, action.tasks );
+				break;
+			case AppConstants.ADD_TASK:
+				_loadTask( action.list, action.task );
 				break;
 		}
 

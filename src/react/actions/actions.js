@@ -34,10 +34,25 @@ var Actions = {
 	 * @param  {array}  data.tasks
 	 */
 	fetchTasks: function( data ) {
+		if ( 'undefined' !== typeof data[0] ) {
+			AppDispatcher.handleViewAction({
+				actionType: AppConstants.RECEIVE_TASKS,
+				list: data[0].status,
+				tasks: data
+			});
+		}
+	},
+
+	/**
+	 * @param  {object}  data
+	 * @param  {string}  data.list
+	 * @param  {array}  data.tasks
+	 */
+	addTask: function( data ) {
 		AppDispatcher.handleViewAction({
-			actionType: AppConstants.RECEIVE_TASKS,
-			list: data[0].status,
-			tasks: data
+			actionType: AppConstants.ADD_TASK,
+			list: data.status,
+			task: data
 		});
 	},
 

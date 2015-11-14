@@ -39,8 +39,7 @@ var _post = function( url, data, callback ) {
 			xhr.setRequestHeader( 'X-WP-Nonce', SentrySettings.nonce );
 		},
 		success: function( data ) {
-			console.log( 'Successfully saved: ', data );
-			// callback();
+			callback( data );
 		}.bind( this ),
 		error: function(xhr, status, err) {
 			console.error( url, status, err.toString() );
@@ -80,7 +79,7 @@ var Server = {
 	createTask: function( data ){
 		// Send the updated order to the API.
 		var url = SentrySettings.URL.root + '/posts/';
-		_post( url, data, _noop );
+		_post( url, data, Actions.addTask );
 	},
 
 };

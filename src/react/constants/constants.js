@@ -4,7 +4,7 @@ module.exports = {
 	RECEIVE_TASKS:    'RECEIVE_TASKS',
 
 	// SAVE_ORDER: 'SAVE_ORDER',
-	// ADD_TASK:   'ADD_TASK',
+	ADD_TASK:   'ADD_TASK',
 
 	RECEIVE_USER: 'RECEIVE_USER',
 };
