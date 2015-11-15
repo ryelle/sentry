@@ -3,6 +3,7 @@
  */
 var assign = require('object-assign'),
 	EventEmitter = require('events').EventEmitter,
+	findIndex = require( 'lodash/array/findIndex' ),
 	page = require( 'page' );
 
 /**
@@ -68,6 +69,26 @@ function _loadTasks( list, tasks ) {
  * @param {string} list - name of list for this task set
  * @param {array} tasks - tasks object, recently added to site
  */
+function _removeTask( task ) {
+	var list, key,
+		found = false;
+
+	for ( let i in _tasks ) {
+		for ( let j in _tasks[ i ] ) {
+			if ( _tasks[ i ][ j ].id == task.id ) {
+				found = true;
+				list = i;
+				key = j;
+				break;
+			}
+		}
+	}
+
+	if ( found ) {
+		console.log( "removing…", list, key );
+		_tasks[ list ].splice( key, 1 );
+	}
+}
 
 /**
  * Load a single task into our task list
@@ -163,6 +184,10 @@ var AppStore = assign({}, EventEmitter.prototype, {
 				break;
 			case AppConstants.RECEIVE_TASKS:
 				_loadTasks( action.list, action.tasks );
+				break;
+			case AppConstants.RECEIVE_TASK:
+				_removeTask( action.task );
+				_loadTask( action.list, action.task );
 				break;
 			case AppConstants.ADD_TASK:
 				_loadTask( action.list, action.task );

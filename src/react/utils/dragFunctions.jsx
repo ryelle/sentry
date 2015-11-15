@@ -16,6 +16,10 @@ var DragFunctions = {
 
 	dragEnd: function(e) {
 		window.dnd.dragged.style.display = "block";
+
+		var newContainer = jQuery( window.dnd.over ).closest( '.dragspace' ).get(0);
+		window.dnd.container = newContainer;
+
 		var position = _.toArray( window.dnd.container.childNodes ).indexOf( window.dnd.placeholder );
 		var list = window.dnd.container.dataset['list'];
 
