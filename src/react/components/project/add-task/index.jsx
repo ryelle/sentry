@@ -57,6 +57,6 @@ var AddTask = React.createClass( {
 			</form>
 		);
 	}
-});
+} );
 
 module.exports = AddTask;

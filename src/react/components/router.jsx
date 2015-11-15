@@ -10,10 +10,10 @@ var React = require( 'react' ),
 var Project = require( './project' ),
 	Navigation = require( './navigation' );
 
-var Router = React.createClass({
+var Router = React.createClass( {
 
 	componentDidMount: function() {
-		page( '/category/:slug', function ( ctx ) {
+		page( '/category/:slug', function( ctx ) {
 			var slug = ctx.params.slug;
 			var url = SentrySettings.URL.root +  '/terms/category/?child_of=' + slug;
 			this.setState( { component: <Project url={url} current={slug} /> } );
@@ -21,7 +21,6 @@ var Router = React.createClass({
 		}.bind( this ) );
 
 		page.start();
-
 	},
 
 	getInitialState: function() {
@@ -38,6 +37,6 @@ var Router = React.createClass({
 		);
 	}
 
-});
+} );
 
 module.exports = Router;

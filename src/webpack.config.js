@@ -32,11 +32,11 @@ module.exports = {
 				loader: require.resolve( 'babel-loader' ) + '?stage=1',
 				exclude: [ /node_modules/ ],
 			},
-			// {
-			// 	test: /\.jsx?$/,
-			// 	loader: 'eslint',
-			// 	exclude: [ /node_modules/ ],
-			// },
+			{
+				test: /\.jsx?$/,
+				loader: 'eslint',
+				exclude: [ /node_modules/ ],
+			},
 			{
 				test: /\.json$/,
 				loader: require.resolve( 'json-loader' )

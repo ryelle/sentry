@@ -7,7 +7,7 @@ var React = require( 'react' );
  * Internal dependencies
  */
 var User = require( '../user' ),
-	AppStore = require('store/app-store'),
+	AppStore = require( 'store/app-store' ),
 	API = require( 'utils/server' );
 
 /**
@@ -23,7 +23,7 @@ function getState() {
 /**
  * Renders list of posts
  */
-var Navigation = React.createClass({
+var Navigation = React.createClass( {
 
 	getInitialState: function() {
 		return getState();
@@ -41,19 +41,19 @@ var Navigation = React.createClass({
 
 	render: function() {
 		var self = this,
-			projects = this.state.data.map( function ( cat ) {
-				if ( "uncategorized" == cat.slug || cat.parent > 0 ) return null;
+			projects = this.state.data.map( function( cat ) {
+				if ( 'uncategorized' === cat.slug || cat.parent > 0 ) return null;
 				var displayName = ( cat.name.length > 2 )? cat.name.slice( 0, 1 ): cat.name;
 				var theClasses = 'project-link';
-				if ( cat.slug == self.state.current ) {
+				if ( cat.slug === self.state.current ) {
 					theClasses += ' current';
 				}
 				return (
-					<a key={cat.id} data-cat={cat.slug} href={cat.link} className={theClasses}>
+					<a key={ cat.id } data-cat={ cat.slug } href={ cat.link } className={ theClasses }>
 						{ displayName }
 					</a>
 				);
-			});
+			} );
 
 		return (
 			<header className="site-header">
@@ -62,6 +62,6 @@ var Navigation = React.createClass({
 			</header>
 		);
 	}
-});
+} );
 
 module.exports = Navigation;

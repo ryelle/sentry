@@ -7,7 +7,7 @@ var React = require( 'react' );
  * Internal dependencies
  */
 var List = require( './list' ),
-	AppStore = require('store/app-store'),
+	AppStore = require( 'store/app-store' ),
 	API = require( 'utils/server' );
 
 /**
@@ -22,7 +22,7 @@ function getState() {
 /**
  * Project component
  */
-var Project = React.createClass({
+var Project = React.createClass( {
 	getInitialState: function() {
 		return getState();
 	},
@@ -37,7 +37,7 @@ var Project = React.createClass({
 		this.setState( getState() );
 	},
 
-	newList: function(){
+	newList: function() {
 		return(
 			<div className="list empty-list" key="new-list">
 				<button className="add-list"><i className="fa fa-plus fa-2x"></i></button>
@@ -64,6 +64,6 @@ var Project = React.createClass({
 			</div>
 		);
 	}
-});
+} );
 
 module.exports = Project;

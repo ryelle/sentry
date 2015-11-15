@@ -11,7 +11,7 @@ var dragFunctions = require( 'utils/dragFunctions' );
 /**
  * Renders list of posts
  */
-var Task = React.createClass({
+var Task = React.createClass( {
 	mixins: [ dragFunctions ],
 
 	propTypes: {
@@ -30,12 +30,12 @@ var Task = React.createClass({
 		var tags = null;
 
 		if ( 'undefined' !== typeof this.props.tags ) {
-			tags = this.props.tags.map( function ( tag ) {
+			tags = this.props.tags.map( function( tag ) {
 				var theClasses = tag + ' ' + 'tag';
 				return (
 					<span key={tag} className={theClasses}>{tag}</span>
 				);
-			});
+			} );
 		} else {
 			tags = (
 				<span dragover={this.blockDrag} key='none' className='tag'>&nbsp;</span>
@@ -48,6 +48,6 @@ var Task = React.createClass({
 			</div>
 		);
 	}
-});
+} );
 
 module.exports = Task;

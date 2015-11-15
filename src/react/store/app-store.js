@@ -1,16 +1,16 @@
 /**
  * External dependencies
  */
-var assign = require('object-assign'),
-	EventEmitter = require('events').EventEmitter,
+var assign = require( 'object-assign' ),
+	EventEmitter = require( 'events' ).EventEmitter,
 	findIndex = require( 'lodash/array/findIndex' ),
 	page = require( 'page' );
 
 /**
  * Internal dependencies
  */
-var AppDispatcher = require('../dispatchers/dispatcher'),
-	AppConstants = require('../constants/constants');
+var AppDispatcher = require( '../dispatchers/dispatcher' ),
+	AppConstants = require( '../constants/constants' );
 
 var CHANGE_EVENT = 'change';
 
@@ -75,7 +75,7 @@ function _removeTask( task ) {
 
 	for ( let i in _tasks ) {
 		for ( let j in _tasks[ i ] ) {
-			if ( _tasks[ i ][ j ].id == task.id ) {
+			if ( parseInt( _tasks[ i ][ j ].id ) === parseInt( task.id ) ) {
 				found = true;
 				list = i;
 				key = j;
@@ -85,7 +85,7 @@ function _removeTask( task ) {
 	}
 
 	if ( found ) {
-		console.log( "removing…", list, key );
+		console.log( 'removing…', list, key );
 		_tasks[ list ].splice( key, 1 );
 	}
 }
@@ -97,11 +97,11 @@ function _removeTask( task ) {
  * @param {array} tasks - tasks object, recently added to site
  */
 function _loadTask( list, task ) {
-	console.log( "adding…", list, task );
+	console.log( 'adding…', list, task );
 	_tasks[ list ].push( task );
 }
 
-var AppStore = assign({}, EventEmitter.prototype, {
+var AppStore = assign( {}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit( CHANGE_EVENT );
 	},
@@ -110,7 +110,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		this.on( CHANGE_EVENT, callback );
 	},
 
-	removeChangeListener: function( callback ){
+	removeChangeListener: function( callback ) {
 		this.removeListener( CHANGE_EVENT, callback );
 	},
 
@@ -175,7 +175,7 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	dispatcherIndex: AppDispatcher.register( function( payload ) {
 		var action = payload.action; // this is our action from handleViewAction
 
-		switch( action.actionType ){
+		switch ( action.actionType ) {
 			case AppConstants.RECEIVE_PROJECTS:
 				_loadProjects( action.data );
 				break;
@@ -197,8 +197,8 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		AppStore.emitChange();
 
 		return true;
-	})
+	} )
 
-});
+} );
 
 module.exports = AppStore;

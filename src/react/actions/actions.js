@@ -3,8 +3,8 @@
  * This includes site settings, plan upgrades
  */
 
-var AppDispatcher = require('../dispatchers/dispatcher');
-var AppConstants = require('../constants/constants');
+var AppDispatcher = require( '../dispatchers/dispatcher' );
+var AppConstants = require( '../constants/constants' );
 
 var Actions = {
 
@@ -12,20 +12,20 @@ var Actions = {
 	 * @param  {array}  projects
 	 */
 	fetchProjects: function( projects ) {
-		AppDispatcher.handleViewAction({
+		AppDispatcher.handleViewAction( {
 			actionType: AppConstants.RECEIVE_PROJECTS,
 			data: projects
-		});
+		} );
 	},
 
 	/**
 	 * @param  {array}  lists
 	 */
 	fetchLists: function( lists ) {
-		AppDispatcher.handleViewAction({
+		AppDispatcher.handleViewAction( {
 			actionType: AppConstants.RECEIVE_LISTS,
 			data: lists
-		});
+		} );
 	},
 
 	/**
@@ -33,11 +33,11 @@ var Actions = {
 	 */
 	fetchTasks: function( data ) {
 		if ( 'undefined' !== typeof data[0] ) {
-			AppDispatcher.handleViewAction({
+			AppDispatcher.handleViewAction( {
 				actionType: AppConstants.RECEIVE_TASKS,
 				list: data[0].list,
 				tasks: data
-			});
+			} );
 		}
 	},
 
@@ -45,22 +45,22 @@ var Actions = {
 	 * @param  {object}  data  A list of tasks
 	 */
 	fetchTask: function( data ) {
-		AppDispatcher.handleViewAction({
+		AppDispatcher.handleViewAction( {
 			actionType: AppConstants.RECEIVE_TASK,
 			list: data.list,
 			task: data
-		});
+		} );
 	},
 
 	/**
 	 * @param  {object}  data  A task just added
 	 */
 	addTask: function( data ) {
-		AppDispatcher.handleViewAction({
+		AppDispatcher.handleViewAction( {
 			actionType: AppConstants.ADD_TASK,
 			list: data.list,
 			task: data
-		});
+		} );
 	},
 
 };

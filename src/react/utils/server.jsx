@@ -2,7 +2,7 @@
 /**
  * Internal dependencies
  */
-var Actions = require('../actions/actions');
+var Actions = require( '../actions/actions' );
 
 /**
  * The API URL prefix
@@ -17,13 +17,13 @@ var _get = function( url, callback ) {
 	jQuery.ajax( {
 		url: url,
 		dataType: 'json',
-		success: function(data) {
+		success: function( data ) {
 			if ( data.constructor !== Array ) {
 				data = [ data ];
 			}
 			callback( data );
 		}.bind( this ),
-		error: function(xhr, status, err) {
+		error: function( xhr, status, err ) {
 			console.error( url, status, err.toString() );
 		}.bind( this )
 	} );
@@ -41,7 +41,7 @@ var _post = function( url, data, callback ) {
 		success: function( data ) {
 			callback( data );
 		}.bind( this ),
-		error: function(xhr, status, err) {
+		error: function( xhr, status, err ) {
 			console.error( url, status, err.toString() );
 		}.bind( this )
 	} );
@@ -64,9 +64,9 @@ var Server = {
 		_get( url, Actions.fetchTasks );
 	},
 
-	saveTaskOrder: function( tasks ){
+	saveTaskOrder: function( tasks ) {
 		// Send the updated order to the API.
-		_.each( tasks, function( post ){
+		_.each( tasks, function( post ) {
 			var url = SentrySettings.URL.root + '/posts/' + post.id,
 				postData = {
 					id: post.id,
@@ -74,10 +74,10 @@ var Server = {
 					list: post.list,
 				};
 			_post( url, postData, Actions.fetchTask );
-		});
+		} );
 	},
 
-	createTask: function( data ){
+	createTask: function( data ) {
 		// Send the updated order to the API.
 		var url = SentrySettings.URL.root + '/posts/';
 		_post( url, data, Actions.addTask );

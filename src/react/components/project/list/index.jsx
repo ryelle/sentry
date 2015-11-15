@@ -13,7 +13,6 @@ var AppStore = require( 'store/app-store' ),
 	Task = require( './task' ),
 	AddTask = require( '../add-task' );
 
-
 /**
  * Method to retrieve state from Stores
  */
@@ -51,7 +50,7 @@ var List = React.createClass( {
 		updatedData = this.state.data.map( function( post ) {
 			if ( pid === post.id ) {
 				post.list = list;
-				if ( position > 0 ){
+				if ( position > 0 ) {
 					position--;
 					post.order = this.state.data[ position ].order + 0.5;
 				} else {
@@ -75,15 +74,15 @@ var List = React.createClass( {
 		return list;
 	},
 
-	addTask: function( event ){
+	addTask: function( event ) {
 		this.setState( { view: 'add' } );
 	},
 
-	closeForm: function(){
+	closeForm: function() {
 		this.setState( { view: 'view' } );
 	},
 
-	renderHeader: function(){
+	renderHeader: function() {
 		return (
 			<header className="list-header" onDragOver={ dragFunctions.dragOver }>
 				<h1 className="list-title">{ this.props.name }</h1>
@@ -95,7 +94,7 @@ var List = React.createClass( {
 		var data = _.sortBy( this.state.data, 'order' ),
 			theClasses = classNames( this.props.slug, 'list' );
 
-		if ( this.state.view == 'add' || data.length == 0 ) {
+		if ( this.state.view === 'add' || data.length === 0 ) {
 			var enableClose = data.length > 0;
 			return (
 				<div className={ theClasses }>
