@@ -25,9 +25,9 @@ class Sentry_RestPosts {
 		) );
 
 		// Status
-		register_api_field( 'post', 'status', array(
-			'get_callback'    => array( $this, 'status_get' ),
-		// 	'update_callback' => array( $this, 'status_update' )
+		register_api_field( 'post', 'list', array(
+			'get_callback'    => array( $this, 'list_get' ),
+			'update_callback' => array( $this, 'list_update' )
 		) );
 	}
 
@@ -59,20 +59,54 @@ class Sentry_RestPosts {
 	}
 
 	/**
-	 * Get the single child category, which corresponds to the task's status
+	 * Get the single child category, which corresponds to the task's list
 	 */
-	function status_get( $_post, $field_name, $request ){
-		$status = get_the_terms( $_post['id'], 'category' );
-		if ( is_array( $status ) ) {
-			$status = wp_list_filter( $status, array( 'parent' => 0 ), 'NOT' );
-			if ( ! empty( $status ) ) {
-				$status = array_shift( $status );
-				$status = $status->slug;
-			}
+	function list_get( $_post, $field_name, $request ){
+		$terms = get_the_terms( $_post['id'], 'category' );
+		$list = $this->_get_list_from_terms( $terms );
+		if ( $list ) {
+			$list = $list->slug;
 		} else {
-			$status = '';
+			$list = '';
 		}
-		return $status;
+		return $list;
+	}
+
+	/**
+	 * Update the post list (status)
+	 */
+	function list_update( $value, $_post, $field_name, $request ){
+		$terms = get_the_terms( $_post->ID, 'category' );
+		$current_list = $this->_get_list_from_terms( $terms );
+		$new_list = get_term_by( 'slug', $value, 'category' );
+		if ( ! $new_list || $current_list == $new_list ) {
+			return;
+		}
+
+		// Replace the current list in the terms array
+		$key = array_search( $current_list, $terms );
+		if ( false === $key ) {
+			return;
+		}
+		$terms[ $key ] = $new_list;
+
+		// Convert terms array to a list of IDs
+		$cats = wp_list_pluck( $terms, 'term_id' );
+
+		return wp_update_post( array(
+			'ID' => $_post->ID,
+			'post_category' => $cats,
+		) );
+	}
+
+	protected function _get_list_from_terms( $terms ){
+		if ( is_array( $terms ) ) {
+			$list = wp_list_filter( $terms, array( 'parent' => 0 ), 'NOT' );
+			if ( ! empty( $list ) ) {
+				return array_shift( $list );
+			}
+		}
+		return false;
 	}
 }
 
@@ -106,7 +140,7 @@ function sentry_pre_insert_post( $prepared_post, $request ){
 	if ( isset( $request['id'] ) ) {
 		return $prepared_post;
 	}
-	$project = $status = array();
+	$project = $list = array();
 
 	if ( isset( $request['project'] ) ) {
 		if ( $term = term_exists( strtolower( $request['project'] ), 'category' ) ) {
@@ -120,11 +154,11 @@ function sentry_pre_insert_post( $prepared_post, $request ){
 
 	if ( isset( $request['category'] ) ) {
 		if ( $term = term_exists( strtolower( $request['category'] ), 'category', $project[0] ) ) {
-			$status = $term['term_id'];
+			$list = $term['term_id'];
 		}
 	}
 
-	$prepared_post->post_category = array( $project, $status );
+	$prepared_post->post_category = array( $project, $list );
 
 	if ( isset( $request['tags'] ) ) {
 		$tags = trim( $request['tags'], ', ' );

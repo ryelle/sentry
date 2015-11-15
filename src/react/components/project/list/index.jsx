@@ -42,11 +42,15 @@ var List = React.createClass( {
 		this.setState( getState( this.props.slug ) );
 	},
 
-	updateSorting: function( pid, position ) {
+	updateSorting: function( pid, position, list ) {
 		var updatedData = this.resetOrder( this.state.data );
+		if ( 'undefined' === typeof list ) {
+			list = this.props.slug;
+		}
+
 		updatedData = this.state.data.map( function( post ) {
 			if ( pid === post.id ) {
-				console.log( "Moving " + post.title.rendered + " to " + position + "..." );
+				post.list = list;
 				if ( position > 0 ){
 					position--;
 					post.order = this.state.data[ position ].order + 0.5;
@@ -81,8 +85,8 @@ var List = React.createClass( {
 
 	renderHeader: function(){
 		return (
-			<header className="status-header" onDragOver={ dragFunctions.dragOver }>
-				<h1 className="status-title">{ this.props.name }</h1>
+			<header className="list-header" onDragOver={ dragFunctions.dragOver }>
+				<h1 className="list-title">{ this.props.name }</h1>
 			</header>
 		);
 	},
@@ -110,7 +114,7 @@ var List = React.createClass( {
 		return (
 			<div className={ theClasses }>
 				{ this.renderHeader() }
-				<div className="dragspace" onDragOver={ dragFunctions.dragOver }>
+				<div className="dragspace" data-list={ this.props.slug } onDragOver={ dragFunctions.dragOver }>
 					{ tasks }
 				</div>
 				<button className="add-task" onClick={ this.addTask }><i className="fa fa-plus fa-2x"></i></button>

@@ -70,9 +70,10 @@ var Server = {
 			var url = SentrySettings.URL.root + '/posts/' + post.id,
 				postData = {
 					id: post.id,
-					order: post.order
+					order: post.order,
+					list: post.list,
 				};
-			_post( url, postData, _noop );
+			_post( url, postData, Actions.fetchTask );
 		});
 	},
 

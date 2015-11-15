@@ -68,8 +68,15 @@ function _loadTasks( list, tasks ) {
  * @param {string} list - name of list for this task set
  * @param {array} tasks - tasks object, recently added to site
  */
+
+/**
+ * Load a single task into our task list
+ *
+ * @param {string} list - name of list for this task set
+ * @param {array} tasks - tasks object, recently added to site
+ */
 function _loadTask( list, task ) {
-	console.log( task );
+	console.log( "adding…", list, task );
 	_tasks[ list ].push( task );
 }
 

@@ -29,29 +29,36 @@ var Actions = {
 	},
 
 	/**
-	 * @param  {object}  data
-	 * @param  {string}  data.list
-	 * @param  {array}  data.tasks
+	 * @param  {object}  data  A list of tasks
 	 */
 	fetchTasks: function( data ) {
 		if ( 'undefined' !== typeof data[0] ) {
 			AppDispatcher.handleViewAction({
 				actionType: AppConstants.RECEIVE_TASKS,
-				list: data[0].status,
+				list: data[0].list,
 				tasks: data
 			});
 		}
 	},
 
 	/**
-	 * @param  {object}  data
-	 * @param  {string}  data.list
-	 * @param  {array}  data.tasks
+	 * @param  {object}  data  A list of tasks
+	 */
+	fetchTask: function( data ) {
+		AppDispatcher.handleViewAction({
+			actionType: AppConstants.RECEIVE_TASK,
+			list: data.list,
+			task: data
+		});
+	},
+
+	/**
+	 * @param  {object}  data  A task just added
 	 */
 	addTask: function( data ) {
 		AppDispatcher.handleViewAction({
 			actionType: AppConstants.ADD_TASK,
-			list: data.status,
+			list: data.list,
 			task: data
 		});
 	},
