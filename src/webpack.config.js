@@ -24,10 +24,6 @@ module.exports = {
 			'utils': path.join( __dirname, '/react/utils' ),
 		},
 	},
-	// externals: {
-	// 	'react': 'React',
-	// 	'react/addons': 'React',
-	// },
 	stats: { colors: true, reasons: true },
 	module: {
 		loaders: [

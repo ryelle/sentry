@@ -30,7 +30,7 @@ function getWebpackConfig() {
 
 	config.entry = {
 		sentry: './react/sentry.jsx',
-		// vendor: [ 'babel-core/polyfill', 'classnames', 'moment', 'page' ]
+		vendor: [ 'react', 'react-dom' ]
 	};
 
 	return config;

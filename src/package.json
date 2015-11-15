@@ -5,9 +5,9 @@
   "author": "Kelly Dwan & Mel Choyce",
   "license": "GPL-2.0+",
   "private": true,
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/ryelle/sentry.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryelle/sentry.git"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.0.0",
@@ -37,6 +37,7 @@
     "lodash": "^3.10.1",
     "object-assign": "^3.0.0",
     "page": "^1.6.4",
-    "react": "^0.14.2"
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2"
   }
 }

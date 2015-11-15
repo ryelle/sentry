@@ -1,7 +1,8 @@
 /**
  * External dependencies
  */
-var React = require( 'react/addons' ),
+var React = require( 'react' ),
+	ReactDOM = require( 'react-dom' ),
 	page = require( 'page' );
 
 /**
@@ -11,14 +12,14 @@ var Router = require( './components/router' );
 
 jQuery( '.site' ).on( 'click', 'a', function( e ) {
 	e.preventDefault();
-	var url = jQuery( this ).attr('href');
-	url = url.replace(/^.*\/\/[^\/]+/, '');
+	var url = jQuery( this ).attr( 'href' );
+	url = url.replace( /^.*\/\/[^\/]+/, '' );
 	page( url );
-});
+} );
 
 /**
  * Make it so…
  */
-React.render(
+ReactDOM.render(
 	<Router />, document.getElementById( 'page' )
 );
