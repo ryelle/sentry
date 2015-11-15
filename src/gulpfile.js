@@ -1,52 +1,52 @@
-var gulp = require('gulp');
-var source = require('vinyl-source-stream'); // Used to stream bundle for further handling
-var browserify = require('browserify');
-var watchify = require('watchify');
-var reactify = require('reactify');
-var babelify = require('babelify');
-var streamify = require('gulp-streamify');
-var gutil = require('gulp-util');
-var shell = require('gulp-shell');
-var glob = require('glob');
-var sass = require('gulp-sass');
+'use strict';
 
-// External dependencies you do not want to rebundle while developing,
-// but include in your application deployment
-var dependencies = [
-	'react',
-	'react/addons',
-	'babelify/polyfill',
-	// 'jquery',
-	// 'underscore',
-];
+var gulp = require( 'gulp' );
+var path = require( 'path' );
+var gutil = require( 'gulp-util' );
+var merge = require( 'merge-stream' );
+var webpack = require( 'webpack' );
+var sass = require( 'gulp-sass' );
 
-var THEME_NAME = 'sentry';
+function onBuild( done ) {
+	return function( err, stats ) {
+		if ( err ) {
+			throw new gutil.PluginError( 'webpack', err );
+		}
+		gutil.log( 'Building JS…', stats.toString( {
+			colors: true
+		} ) );
 
-var cssConfig = {
-	sourceFile: './sass/style.scss',
-	watchDir: [ './sass/**/*.scss', './react/components/**/*.scss' ],
-	destDir: './',
-};
+		if ( done ) {
+			done();
+		}
+	};
+}
 
-var jsConfig = {
-	sourceFile: './react/sentry.jsx',
-	destFile: THEME_NAME + '.js',
-	vendorFile: 'vendors.js',
-	destDir: './js',
-	// watchDir: [ '' ],
+function getWebpackConfig() {
+	// clone and extend webpackConfig
+	var config = Object.create( require( './webpack.config.js' ) );
+	config.devtool = "sourcemap";
+	config.debug = true;
+
+	config.entry = {
+		sentry: './react/sentry.jsx',
+		// vendor: [ 'babel-core/polyfill', 'classnames', 'moment', 'page' ]
+	};
+
+	return config;
 }
 
 function doSass() {
 	if ( arguments.length ) {
-		console.log( 'Sass file ' + arguments[0].path + ' changed.' );
+		console.log('Sass file ' + arguments[0].path + ' changed.');
 	}
 	var start = new Date();
 	console.log( 'Building CSS bundle' );
-	gulp.src( cssConfig.sourceFile )
+	gulp.src( './sass/style.scss' )
 		.pipe( sass().on( 'error', sass.logError ) )
-		.pipe( gulp.dest( cssConfig.destDir ) )
+		.pipe( gulp.dest( './' ) )
 		.on( 'end', function() {
-			console.log( 'Finished ' + cssConfig.sourceFile );
+			console.log( 'CSS finished.' );
 		} );
 };
 
@@ -56,72 +56,15 @@ gulp.task( 'sass:build', function() {
 
 gulp.task( 'sass:watch', function() {
 	doSass();
-	gulp.watch( cssConfig.watchDir, doSass );
+	gulp.watch( [ './scss/**/*.scss', './react/**/*.scss' ], doSass );
 } );
-
-function setupBundler() {
-	var appBundler = browserify({
-		entries: [ jsConfig.sourceFile ],
-		transform: [ reactify, babelify ],
-		paths: [ './node_modules','./react' ],
-		extensions: [ '.js','.jsx' ],
-		debug: true,
-		cache: {}, packageCache: {}, fullPaths: true // Requirement of watchify
-	});
-
-	dependencies.forEach( function( dep ) {
-		appBundler.external( dep );
-	} );
-
-	return appBundler;
-}
-
-function doBundle( appBundler ) {
-	var start = Date.now();
-	console.log( 'Building ' + jsConfig.destFile );
-	appBundler.bundle()
-		.on( 'error', gutil.log )
-		.pipe( source( jsConfig.destFile ) )
-		.pipe( gulp.dest( jsConfig.destDir ) )
-		.on( 'end', function() {
-			console.log( 'Finished ' + jsConfig.destFile );
-		});
-};
-
-function doVendorBundle() {
-	// Bundle dependencies
-	var vendorBundler = browserify( {
-		debug: true,
-		require: dependencies
-	} );
-
-	// Run the vendor bundle
-	console.log( 'Building ' + jsConfig.vendorFile );
-	vendorBundler.bundle()
-		.on( 'error', gutil.log )
-		.pipe( source( jsConfig.vendorFile ) )
-		.pipe( gulp.dest( jsConfig.destDir ) )
-		.on( 'end', function() {
-			console.log( 'Finished ' + jsConfig.vendorFile );
-		});
-}
 
 gulp.task( 'react:build', function( done ) {
-	var bundler = setupBundler();
-	doBundle( bundler );
-	doVendorBundle();
+	webpack( getWebpackConfig() ).run( onBuild( done ) );
 } );
 
-gulp.task( 'react:watch', function( done ) {
-	var bundler = setupBundler();
-	doBundle( bundler );
-	// Fire up Watchify when developing
-	bundler = watchify( bundler );
-	bundler.on( 'update', function() {
-		doBundle( bundler );
-	} );
-
-	doVendorBundle();
+gulp.task( 'react:watch', function() {
+	webpack( getWebpackConfig() ).watch( 100, onBuild() );
 } );
 
 gulp.task( 'default', ['react:build', 'sass:build'] );
